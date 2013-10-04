@@ -4,7 +4,7 @@
     <list default="true" id="a9da4d02-98b3-4392-bffb-cbac1947b741" name="Default" comment="" />
     <ignored path="hmm1.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380880520143" ignored="false" />
+    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380889363931" ignored="false" />
     <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380840852427" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,17 +69,21 @@
       <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="79" selection-start="2844" selection-end="2844" vertical-scroll-proportion="-0.013266998">
+            <state line="195" column="66" selection-start="7491" selection-end="7491" vertical-scroll-proportion="1.2457627">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1121#1137#0" expanded="true" />
-                <element signature="e#1232#1240#0" expanded="true" />
-                <element signature="method#buildVector#0;class#Main#0" expanded="false" />
-                <element signature="e#2043#2051#0" expanded="true" />
-                <element signature="e#2670#2678#0" expanded="true" />
-                <element signature="method#transpose#0;class#Main#0" expanded="false" />
-                <element signature="e#3294#3310#0" expanded="true" />
-                <element signature="e#3446#3454#0" expanded="true" />
+                <element signature="e#399#407#0" expanded="true" />
+                <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
+                <element signature="e#1490#1506#0" expanded="true" />
+                <element signature="e#1601#1609#0" expanded="true" />
+                <element signature="e#2559#2567#0" expanded="true" />
+                <element signature="e#2933#2941#0" expanded="true" />
+                <element signature="e#3735#3743#0" expanded="true" />
+                <element signature="e#4334#4342#0" expanded="true" />
+                <element signature="e#4961#4969#0" expanded="true" />
+                <element signature="e#5731#5747#0" expanded="true" />
+                <element signature="e#5883#5891#0" expanded="true" />
+                <element signature="method#dot#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -331,14 +335,18 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1121#1137#0" expanded="true" />
-            <element signature="e#1232#1240#0" expanded="true" />
-            <element signature="method#buildVector#0;class#Main#0" expanded="false" />
-            <element signature="e#2043#2051#0" expanded="true" />
-            <element signature="e#2670#2678#0" expanded="true" />
-            <element signature="method#transpose#0;class#Main#0" expanded="false" />
-            <element signature="e#3294#3310#0" expanded="true" />
-            <element signature="e#3446#3454#0" expanded="true" />
+            <element signature="e#399#407#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
+            <element signature="e#1490#1506#0" expanded="true" />
+            <element signature="e#1601#1609#0" expanded="true" />
+            <element signature="e#2559#2567#0" expanded="true" />
+            <element signature="e#2933#2941#0" expanded="true" />
+            <element signature="e#3735#3743#0" expanded="true" />
+            <element signature="e#4334#4342#0" expanded="true" />
+            <element signature="e#4961#4969#0" expanded="true" />
+            <element signature="e#5731#5747#0" expanded="true" />
+            <element signature="e#5883#5891#0" expanded="true" />
+            <element signature="method#dot#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -350,17 +358,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="79" selection-start="2844" selection-end="2844" vertical-scroll-proportion="-0.013266998">
+        <state line="195" column="66" selection-start="7491" selection-end="7491" vertical-scroll-proportion="1.2457627">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1121#1137#0" expanded="true" />
-            <element signature="e#1232#1240#0" expanded="true" />
-            <element signature="method#buildVector#0;class#Main#0" expanded="false" />
-            <element signature="e#2043#2051#0" expanded="true" />
-            <element signature="e#2670#2678#0" expanded="true" />
-            <element signature="method#transpose#0;class#Main#0" expanded="false" />
-            <element signature="e#3294#3310#0" expanded="true" />
-            <element signature="e#3446#3454#0" expanded="true" />
+            <element signature="e#399#407#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
+            <element signature="e#1490#1506#0" expanded="true" />
+            <element signature="e#1601#1609#0" expanded="true" />
+            <element signature="e#2559#2567#0" expanded="true" />
+            <element signature="e#2933#2941#0" expanded="true" />
+            <element signature="e#3735#3743#0" expanded="true" />
+            <element signature="e#4334#4342#0" expanded="true" />
+            <element signature="e#4961#4969#0" expanded="true" />
+            <element signature="e#5731#5747#0" expanded="true" />
+            <element signature="e#5883#5891#0" expanded="true" />
+            <element signature="method#dot#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>

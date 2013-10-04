@@ -2,6 +2,7 @@ package com.sebastialonso;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 public class Main {
@@ -10,22 +11,32 @@ public class Main {
 	// write your code here
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
-        String[] line = new String[3];
 
-        for (int i=0; i<3 ; i++){
-            line[i] = br.readLine();
+        Vector<String> lines = new Vector<String>();
+        while (br.ready()){
+            lines.add(br.readLine());
         }
 
-        Vector<Vector<Double>> transitionMatrix = buildMatrix(line[0]);
-        Vector<Vector<Double>> emissionMatrix = buildMatrix(line[1]);
-        Vector<Double> initialVector = buildVector(line[2]);
-        System.out.println(printMatrix(transitionMatrix));
-        System.out.println(printVector(initialVector));
-        System.out.println(printMatrix(transpose(transitionMatrix)));
-        System.out.println("pi * A: \n" + multiplyVectorMatrix(initialVector, transitionMatrix));
+        //Data structures from file
+        Vector<Vector<Double>> transitionMatrix = buildMatrix(lines.get(0));
+        Vector<Vector<Double>> emissionMatrix = buildMatrix(lines.get(1));
+        Vector<Double> initialVector = buildVector(lines.get(2));
+        /***********************HMM1
+        /***********************HMM2
+         */
+        if (lines.size() == 4){
+            Vector<String> observationVector = buildObservationVector(lines.get(3));
+            System.out.println(forwardAlgorithm(transitionMatrix, emissionMatrix, initialVector, observationVector));
+        }
+
 
     }
 
+    /**
+     * Builds a matrix out of a string with matrix information
+     * @param matrixLine The String that contains number of rows, number of columns and elements
+     * @return A Vector<Vector<Double>> as a matrix
+     */
     private static Vector<Vector<Double>> buildMatrix(String matrixLine){
         String[] matrixContent = matrixLine.split(" ");
         Vector<Vector<Double>> matrix = new Vector<Vector<Double>>();
@@ -48,6 +59,46 @@ public class Main {
         return matrix;
     }
 
+    private static Double forwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+        int numberOfStates = transition.size();
+        int numberOfTimes = observations.size();
+
+        Vector<Double> currentAlpha = new Vector<Double>(transition.size());
+        for (int j=0; j < transition.size(); j++){
+            currentAlpha.add(initial.get(j) * emission.get(j).get(Integer.parseInt(observations.elementAt(0))));
+        }
+        Vector<Vector<Double>> transitionTranspose = transpose(transition);
+        for (int t=1; t < numberOfTimes; t++){
+            Vector<Double> newAlpha = new Vector<Double>();
+            String currentObservation = observations.elementAt(t);
+            for (Integer i=0; i< numberOfStates; i++){
+                newAlpha.add(dot(currentAlpha, transitionTranspose.get(i)) * emission.get(i).get(Integer.parseInt(currentObservation)));
+            }
+            currentAlpha = newAlpha;
+        }
+        return sumElements(currentAlpha);
+    }
+
+    /**
+     * Buils a vector with the observations
+     * @param vectorLine The String that contains the number of observations and the observations
+     * @return A Vector<String> that contains the observations as String elements
+     */
+    private static Vector<String> buildObservationVector(String vectorLine){
+        String[] vectorContent = vectorLine.split(" ");
+        Vector<String> observations = new Vector<String>(Integer.parseInt(vectorContent[0]));
+
+        for (int i=1; i< vectorContent.length; i++){
+            observations.add(vectorContent[i]);
+        }
+        return observations;
+    }
+
+    /**
+     * Buils a initial state vector for the HMM
+     * @param vectorLine The String that contains the number of rows, columns and the probability distribution
+     * @return A Vector<Double> with the probability distribution
+     */
     private static Vector<Double> buildVector(String vectorLine){
         String[] vectorContent = vectorLine.split(" ");
         Vector<Double> vector = new Vector<Double>();
@@ -76,8 +127,8 @@ public class Main {
 
     /**
      * Transposes a matrix, i.e, changes its rows per its columns
-     * @param matrix
-     * @return
+     * @param matrix A Vector<Vector<Double>> matrix to be transposed
+     * @return A Vector<Vector<Double>> matrix which has rows as the columns of A, and columns as the rows of A
      */
     private static Vector<Vector<Double>> transpose(Vector<Vector<Double>> matrix){
         int rowNumber = matrix.size();
@@ -94,12 +145,32 @@ public class Main {
         return transposeMatrix;
     }
 
+    /**
+     * Calculates the dot product between two vectors
+     * @param first A Vector<Double> to be multiplied
+     * @param second The second Vector<Double> to be multiplied
+     * @return A Double with the value of the dot product
+     */
     private static Double dot(Vector<Double> first, Vector<Double> second){
         Double result = 0.0;
         for (int i=0; i< first.size(); i++){
             result += first.get(i) * second.get(i);
         }
         return result;
+    }
+
+    /**
+     * Sums the element of a vector
+     * @param vector Vector<Double> on which the internal sum is desired
+     * @return Double sum of the elements of the vector
+     */
+    private static Double sumElements(Vector<Double> vector){
+        Double sum = 0.0;
+        for (Double element : vector){
+            sum += element;
+        }
+
+        return sum;
     }
 
     private static String printMatrix(Vector<Vector<Double>> matrix){
@@ -123,5 +194,14 @@ public class Main {
             st += element + " ";
         }
         return st + "}";
+    }
+
+    private static String finalPrintVector(Vector<Double> vector){
+        String st="1 " + vector.size();
+        for (Double element : vector){
+            st += " " + new DecimalFormat("#.##").format(element);
+        }
+        return st;
+
     }
 }
