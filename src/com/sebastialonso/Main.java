@@ -71,13 +71,41 @@ public class Main {
         for (int t=1; t < numberOfTimes; t++){
             Vector<Double> newAlpha = new Vector<Double>();
             String currentObservation = observations.elementAt(t);
-            for (Integer i=0; i< numberOfStates; i++){
-                newAlpha.add(dot(currentAlpha, transitionTranspose.get(i)) * emission.get(i).get(Integer.parseInt(currentObservation)));
-            }
+            newAlpha = alpha_t(currentAlpha, numberOfStates, transitionTranspose, emission,currentObservation);
             currentAlpha = newAlpha;
         }
         return sumElements(currentAlpha);
     }
+
+    /**
+     * Performs once cycle for a time t, updating the value of the alpha array
+     * @param previousAlpha Vector<Double> of the previous time
+     * @param numberOfStates Number of slots in prevoiusAlpha (number of states of the HMM)
+     * @param transpose The transpose of the transition matrix, used for dot product
+     * @param emission The emission matrix, B.
+     * @param currentObservation The String corresponding to the observation O_t
+     * @return
+     */
+    private static Vector<Double> alpha_t(Vector<Double> previousAlpha,
+                                          int numberOfStates,
+                                          Vector<Vector<Double>> transpose,
+                                          Vector<Vector<Double>> emission,
+                                          String currentObservation ){
+        Vector<Double> newAlpha = new Vector<Double>();
+        for (Integer i=0; i< numberOfStates; i++){
+            newAlpha.add(dot(previousAlpha, transpose.get(i)) * emission.get(i).get(Integer.parseInt(currentObservation)));
+        }
+        return newAlpha;
+    }
+
+    /*private static Vector<String> backwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+        //Calculate forwardAlgorithm
+        Double probObservationGivenModel = forwardAlgorithm(transition, emission, initial, observations);
+        //Calculate beta
+
+        //Calculate alpha
+        //Each turn beta is computed, alpha needs to be computed, and gamma needs to be computed
+    }*/
 
     /**
      * Buils a vector with the observations

@@ -4,7 +4,7 @@
     <list default="true" id="a9da4d02-98b3-4392-bffb-cbac1947b741" name="Default" comment="" />
     <ignored path="hmm1.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380889363931" ignored="false" />
+    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380891661382" ignored="false" />
     <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380840852427" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,31 +65,73 @@
     <favorites_list name="hmm1" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="195" column="66" selection-start="7491" selection-end="7491" vertical-scroll-proportion="1.2457627">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#399#407#0" expanded="true" />
-                <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
-                <element signature="e#1490#1506#0" expanded="true" />
-                <element signature="e#1601#1609#0" expanded="true" />
-                <element signature="e#2559#2567#0" expanded="true" />
-                <element signature="e#2933#2941#0" expanded="true" />
-                <element signature="e#3735#3743#0" expanded="true" />
-                <element signature="e#4334#4342#0" expanded="true" />
-                <element signature="e#4961#4969#0" expanded="true" />
-                <element signature="e#5731#5747#0" expanded="true" />
-                <element signature="e#5883#5891#0" expanded="true" />
-                <element signature="method#dot#0;class#Main#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.6025974">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="107" column="7" selection-start="4332" selection-end="4803" vertical-scroll-proportion="0.5101695">
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#399#407#0" expanded="true" />
+                    <element signature="e#1490#1506#0" expanded="true" />
+                    <element signature="e#1601#1609#0" expanded="true" />
+                    <element signature="e#2559#2567#0" expanded="true" />
+                    <element signature="e#2933#2941#0" expanded="true" />
+                    <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
+                    <element signature="e#4099#4107#0" expanded="true" />
+                    <element signature="method#buildObservationVector#0;class#Main#0" expanded="false" />
+                    <element signature="e#5226#5234#0" expanded="true" />
+                    <element signature="method#buildVector#0;class#Main#0" expanded="false" />
+                    <element signature="e#5825#5833#0" expanded="true" />
+                    <element signature="method#multiplyVectorMatrix#0;class#Main#0" expanded="false" />
+                    <element signature="e#6452#6460#0" expanded="true" />
+                    <element signature="method#transpose#0;class#Main#0" expanded="false" />
+                    <element signature="e#7222#7238#0" expanded="true" />
+                    <element signature="e#7374#7382#0" expanded="true" />
+                    <element signature="method#dot#0;class#Main#0" expanded="false" />
+                    <element signature="method#sumElements#0;class#Main#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="102" column="20" selection-start="4561" selection-end="4561" vertical-scroll-proportion="0.28135592">
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2559#2567#0" expanded="true" />
+                    <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
+                    <element signature="e#1490#1506#0" expanded="true" />
+                    <element signature="e#4099#4107#0" expanded="true" />
+                    <element signature="e#2559#2567#0" expanded="true" />
+                    <element signature="e#2933#2941#0" expanded="true" />
+                    <element signature="method#buildObservationVector#0;class#Main#0" expanded="false" />
+                    <element signature="e#5226#5234#0" expanded="true" />
+                    <element signature="method#buildVector#0;class#Main#0" expanded="false" />
+                    <element signature="e#5825#5833#0" expanded="true" />
+                    <element signature="method#multiplyVectorMatrix#0;class#Main#0" expanded="false" />
+                    <element signature="e#6452#6460#0" expanded="true" />
+                    <element signature="method#transpose#0;class#Main#0" expanded="false" />
+                    <element signature="e#7222#7238#0" expanded="true" />
+                    <element signature="e#7374#7382#0" expanded="true" />
+                    <element signature="method#dot#0;class#Main#0" expanded="false" />
+                    <element signature="method#sumElements#0;class#Main#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -253,7 +295,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24158126" sideWeight="0.6709062" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15446559" sideWeight="0.6709062" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25833333" sideWeight="0.6709062" order="0" side_tool="false" content_ui="combo" />
@@ -336,17 +378,23 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#399#407#0" expanded="true" />
-            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
             <element signature="e#1490#1506#0" expanded="true" />
             <element signature="e#1601#1609#0" expanded="true" />
             <element signature="e#2559#2567#0" expanded="true" />
             <element signature="e#2933#2941#0" expanded="true" />
-            <element signature="e#3735#3743#0" expanded="true" />
-            <element signature="e#4334#4342#0" expanded="true" />
-            <element signature="e#4961#4969#0" expanded="true" />
-            <element signature="e#5731#5747#0" expanded="true" />
-            <element signature="e#5883#5891#0" expanded="true" />
+            <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
+            <element signature="e#4099#4107#0" expanded="true" />
+            <element signature="method#buildObservationVector#0;class#Main#0" expanded="false" />
+            <element signature="e#5226#5234#0" expanded="true" />
+            <element signature="method#buildVector#0;class#Main#0" expanded="false" />
+            <element signature="e#5825#5833#0" expanded="true" />
+            <element signature="method#multiplyVectorMatrix#0;class#Main#0" expanded="false" />
+            <element signature="e#6452#6460#0" expanded="true" />
+            <element signature="method#transpose#0;class#Main#0" expanded="false" />
+            <element signature="e#7222#7238#0" expanded="true" />
+            <element signature="e#7374#7382#0" expanded="true" />
             <element signature="method#dot#0;class#Main#0" expanded="false" />
+            <element signature="method#sumElements#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -358,21 +406,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="195" column="66" selection-start="7491" selection-end="7491" vertical-scroll-proportion="1.2457627">
+        <state line="107" column="7" selection-start="4332" selection-end="4803" vertical-scroll-proportion="0.5101695">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#399#407#0" expanded="true" />
-            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
             <element signature="e#1490#1506#0" expanded="true" />
             <element signature="e#1601#1609#0" expanded="true" />
             <element signature="e#2559#2567#0" expanded="true" />
             <element signature="e#2933#2941#0" expanded="true" />
-            <element signature="e#3735#3743#0" expanded="true" />
-            <element signature="e#4334#4342#0" expanded="true" />
-            <element signature="e#4961#4969#0" expanded="true" />
-            <element signature="e#5731#5747#0" expanded="true" />
-            <element signature="e#5883#5891#0" expanded="true" />
+            <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
+            <element signature="e#4099#4107#0" expanded="true" />
+            <element signature="method#buildObservationVector#0;class#Main#0" expanded="false" />
+            <element signature="e#5226#5234#0" expanded="true" />
+            <element signature="method#buildVector#0;class#Main#0" expanded="false" />
+            <element signature="e#5825#5833#0" expanded="true" />
+            <element signature="method#multiplyVectorMatrix#0;class#Main#0" expanded="false" />
+            <element signature="e#6452#6460#0" expanded="true" />
+            <element signature="method#transpose#0;class#Main#0" expanded="false" />
+            <element signature="e#7222#7238#0" expanded="true" />
+            <element signature="e#7374#7382#0" expanded="true" />
             <element signature="method#dot#0;class#Main#0" expanded="false" />
+            <element signature="method#sumElements#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
