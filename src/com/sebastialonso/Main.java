@@ -26,7 +26,7 @@ public class Main {
          */
         if (lines.size() == 4){
             Vector<String> observationVector = buildObservationVector(lines.get(3));
-            System.out.println(forwardAlgorithm(transitionMatrix, emissionMatrix, initialVector, observationVector));
+            System.out.println(sumElements(forwardAlgorithm(transitionMatrix, emissionMatrix, initialVector, observationVector).lastElement()));
         }
 
 
@@ -59,22 +59,23 @@ public class Main {
         return matrix;
     }
 
-    private static Double forwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+    private static Vector<Vector<Double>> forwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
         int numberOfStates = transition.size();
         int numberOfTimes = observations.size();
 
-        Vector<Double> currentAlpha = new Vector<Double>(transition.size());
-        for (int j=0; j < transition.size(); j++){
-            currentAlpha.add(initial.get(j) * emission.get(j).get(Integer.parseInt(observations.elementAt(0))));
+        Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>(numberOfTimes);
+        Vector<Double> alphaATimeT = new Vector<Double>();
+        for (int j=0; j < numberOfStates; j++){
+
+            alphaATimeT.add(initial.get(j) * emission.get(j).get(Integer.parseInt(observations.elementAt(0))));
         }
+        alphaMatrix.add(alphaATimeT);
         Vector<Vector<Double>> transitionTranspose = transpose(transition);
         for (int t=1; t < numberOfTimes; t++){
-            Vector<Double> newAlpha = new Vector<Double>();
             String currentObservation = observations.elementAt(t);
-            newAlpha = alpha_t(currentAlpha, numberOfStates, transitionTranspose, emission,currentObservation);
-            currentAlpha = newAlpha;
+            alphaMatrix.add(alpha_t(alphaMatrix.get(t-1), numberOfStates, transitionTranspose, emission,currentObservation));
         }
-        return sumElements(currentAlpha);
+        return alphaMatrix;
     }
 
     /**
@@ -86,10 +87,8 @@ public class Main {
      * @param currentObservation The String corresponding to the observation O_t
      * @return
      */
-    private static Vector<Double> alpha_t(Vector<Double> previousAlpha,
-                                          int numberOfStates,
-                                          Vector<Vector<Double>> transpose,
-                                          Vector<Vector<Double>> emission,
+    private static Vector<Double> alpha_t(Vector<Double> previousAlpha, int numberOfStates,
+                                          Vector<Vector<Double>> transpose, Vector<Vector<Double>> emission,
                                           String currentObservation ){
         Vector<Double> newAlpha = new Vector<Double>();
         for (Integer i=0; i< numberOfStates; i++){
@@ -98,14 +97,40 @@ public class Main {
         return newAlpha;
     }
 
-    /*private static Vector<String> backwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
-        //Calculate forwardAlgorithm
-        Double probObservationGivenModel = forwardAlgorithm(transition, emission, initial, observations);
-        //Calculate beta
+    private static Vector<Vector<Double>> backwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+        //Compute and store forwardAlgorithm
+        Vector<Vector<Double>> alphaMatrix = forwardAlgorithm(transition, emission, initial, observations);
+        Double probObservationGivenModel = sumElements(alphaMatrix.lastElement());
+        int numberOfObservations =  observations.size();
+        int numberOfStates = transition.size();
 
-        //Calculate alpha
+        //Initialize beta
+        Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>();
+        Vector<Double> betaAtTimet = new Vector<Double>();
+        for (int index=0; index < numberOfStates; index++){
+            betaAtTimet.add(1.0);
+        }
+        betaMatrix.add(betaAtTimet);
+
+        //TODO Must reverse the rows! First is last and so on!
+        for (int t = numberOfObservations-2; t >= 0; t--){
+            String futureObservation = observations.elementAt(t);
+            betaMatrix.add(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, transition, emission, futureObservation));
+        }
+        return betaMatrix;
         //Each turn beta is computed, alpha needs to be computed, and gamma needs to be computed
-    }*/
+    }
+
+    private static Vector<Double> beta_t(Vector<Double> posteriorBeta, int numberOfStates,
+                                         Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, String futureObservation){
+        Vector<Double> currentBeta = new Vector<Double>();
+        for (int i=0; i < numberOfStates; i++){
+            for (int j=0; j < numberOfStates; j++){
+                currentBeta.add(transition.get(i).get(j) * emission.get(j).get(Integer.parseInt(futureObservation)) * posteriorBeta.get(j));
+            }
+        }
+        return currentBeta;
+    }
 
     /**
      * Buils a vector with the observations
