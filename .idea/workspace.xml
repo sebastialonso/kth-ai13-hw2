@@ -4,7 +4,7 @@
     <list default="true" id="a9da4d02-98b3-4392-bffb-cbac1947b741" name="Default" comment="" />
     <ignored path="hmm1.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380985093244" ignored="false" />
+    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381155492622" ignored="false" />
     <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1380840852427" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,25 +69,25 @@
       <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="26" selection-start="5476" selection-end="5476" vertical-scroll-proportion="0.6694915">
+            <state line="141" column="90" selection-start="6432" selection-end="6432" vertical-scroll-proportion="0.7118644">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#399#407#0" expanded="true" />
                 <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
-                <element signature="e#1517#1533#0" expanded="true" />
-                <element signature="e#1628#1636#0" expanded="true" />
-                <element signature="e#2609#2625#0" expanded="true" />
-                <element signature="e#2689#2697#0" expanded="true" />
-                <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
-                <element signature="e#4066#4074#0" expanded="true" />
-                <element signature="e#4899#4915#0" expanded="true" />
-                <element signature="e#4966#4974#0" expanded="true" />
-                <element signature="e#5855#5863#0" expanded="true" />
-                <element signature="e#6588#6596#0" expanded="true" />
-                <element signature="e#7187#7195#0" expanded="true" />
-                <element signature="e#7814#7822#0" expanded="true" />
-                <element signature="e#8584#8600#0" expanded="true" />
-                <element signature="e#8736#8744#0" expanded="true" />
+                <element signature="e#1622#1638#0" expanded="true" />
+                <element signature="e#1733#1741#0" expanded="true" />
+                <element signature="e#3042#3050#0" expanded="true" />
+                <element signature="e#3654#3670#0" expanded="true" />
+                <element signature="e#3732#3740#0" expanded="true" />
+                <element signature="e#5104#5112#0" expanded="true" />
+                <element signature="e#5990#6006#0" expanded="true" />
+                <element signature="e#6054#6062#0" expanded="true" />
+                <element signature="e#6900#6908#0" expanded="true" />
+                <element signature="e#7633#7641#0" expanded="true" />
+                <element signature="e#8232#8240#0" expanded="true" />
+                <element signature="e#8859#8867#0" expanded="true" />
+                <element signature="e#9629#9645#0" expanded="true" />
+                <element signature="e#9781#9789#0" expanded="true" />
                 <element signature="method#dot#0;class#Main#0" expanded="false" />
                 <element signature="method#sumElements#0;class#Main#0" expanded="false" />
               </folding>
@@ -110,8 +110,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1366" />
+    <option name="x" value="302" />
+    <option name="y" value="27" />
+    <option name="width" value="1024" />
     <option name="height" value="745" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -185,13 +186,13 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="Application" factoryName="Application">
@@ -246,27 +247,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1366" height="745" extended-state="6" />
+    <frame x="302" y="27" width="1024" height="745" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3990461" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15373352" sideWeight="0.6709062" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16894531" sideWeight="0.6709062" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25833333" sideWeight="0.6709062" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="402" y="127" width="824" height="545" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -338,25 +340,52 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#399#407#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
+            <element signature="e#1622#1638#0" expanded="true" />
+            <element signature="e#1733#1741#0" expanded="true" />
+            <element signature="e#3042#3050#0" expanded="true" />
+            <element signature="e#3654#3670#0" expanded="true" />
+            <element signature="e#3732#3740#0" expanded="true" />
+            <element signature="e#5104#5112#0" expanded="true" />
+            <element signature="e#5990#6006#0" expanded="true" />
+            <element signature="e#6054#6062#0" expanded="true" />
+            <element signature="e#6900#6908#0" expanded="true" />
+            <element signature="e#7633#7641#0" expanded="true" />
+            <element signature="e#8232#8240#0" expanded="true" />
+            <element signature="e#8859#8867#0" expanded="true" />
+            <element signature="e#9629#9645#0" expanded="true" />
+            <element signature="e#9781#9789#0" expanded="true" />
+            <element signature="method#dot#0;class#Main#0" expanded="false" />
+            <element signature="method#sumElements#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="113" column="16" selection-start="5046" selection-end="5046" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#399#407#0" expanded="true" />
             <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
-            <element signature="e#1517#1533#0" expanded="true" />
-            <element signature="e#1628#1636#0" expanded="true" />
-            <element signature="e#2609#2625#0" expanded="true" />
-            <element signature="e#2689#2697#0" expanded="true" />
-            <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
-            <element signature="e#4066#4074#0" expanded="true" />
-            <element signature="e#4899#4915#0" expanded="true" />
-            <element signature="e#4966#4974#0" expanded="true" />
-            <element signature="e#5855#5863#0" expanded="true" />
-            <element signature="e#6588#6596#0" expanded="true" />
-            <element signature="e#7187#7195#0" expanded="true" />
-            <element signature="e#7814#7822#0" expanded="true" />
-            <element signature="e#8584#8600#0" expanded="true" />
-            <element signature="e#8736#8744#0" expanded="true" />
+            <element signature="e#1622#1638#0" expanded="true" />
+            <element signature="e#1733#1741#0" expanded="true" />
+            <element signature="e#3042#3050#0" expanded="true" />
+            <element signature="e#3654#3670#0" expanded="true" />
+            <element signature="e#3732#3740#0" expanded="true" />
+            <element signature="e#5104#5112#0" expanded="true" />
+            <element signature="e#5990#6006#0" expanded="true" />
+            <element signature="e#6054#6062#0" expanded="true" />
+            <element signature="e#6900#6908#0" expanded="true" />
+            <element signature="e#7633#7641#0" expanded="true" />
+            <element signature="e#8232#8240#0" expanded="true" />
+            <element signature="e#8859#8867#0" expanded="true" />
+            <element signature="e#9629#9645#0" expanded="true" />
+            <element signature="e#9781#9789#0" expanded="true" />
             <element signature="method#dot#0;class#Main#0" expanded="false" />
             <element signature="method#sumElements#0;class#Main#0" expanded="false" />
           </folding>
@@ -370,20 +399,20 @@
             <element signature="imports" expanded="true" />
             <element signature="e#399#407#0" expanded="true" />
             <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
-            <element signature="e#1517#1533#0" expanded="true" />
-            <element signature="e#1628#1636#0" expanded="true" />
-            <element signature="e#2609#2625#0" expanded="true" />
-            <element signature="e#2689#2697#0" expanded="true" />
-            <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
-            <element signature="e#4066#4074#0" expanded="true" />
-            <element signature="e#4899#4915#0" expanded="true" />
-            <element signature="e#4966#4974#0" expanded="true" />
-            <element signature="e#5855#5863#0" expanded="true" />
-            <element signature="e#6588#6596#0" expanded="true" />
-            <element signature="e#7187#7195#0" expanded="true" />
-            <element signature="e#7814#7822#0" expanded="true" />
-            <element signature="e#8584#8600#0" expanded="true" />
-            <element signature="e#8736#8744#0" expanded="true" />
+            <element signature="e#1622#1638#0" expanded="true" />
+            <element signature="e#1733#1741#0" expanded="true" />
+            <element signature="e#3042#3050#0" expanded="true" />
+            <element signature="e#3654#3670#0" expanded="true" />
+            <element signature="e#3732#3740#0" expanded="true" />
+            <element signature="e#5104#5112#0" expanded="true" />
+            <element signature="e#5990#6006#0" expanded="true" />
+            <element signature="e#6054#6062#0" expanded="true" />
+            <element signature="e#6900#6908#0" expanded="true" />
+            <element signature="e#7633#7641#0" expanded="true" />
+            <element signature="e#8232#8240#0" expanded="true" />
+            <element signature="e#8859#8867#0" expanded="true" />
+            <element signature="e#9629#9645#0" expanded="true" />
+            <element signature="e#9781#9789#0" expanded="true" />
             <element signature="method#dot#0;class#Main#0" expanded="false" />
             <element signature="method#sumElements#0;class#Main#0" expanded="false" />
           </folding>
@@ -397,25 +426,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="26" selection-start="5476" selection-end="5476" vertical-scroll-proportion="0.6694915">
+        <state line="141" column="90" selection-start="6432" selection-end="6432" vertical-scroll-proportion="0.7118644">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#399#407#0" expanded="true" />
             <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
-            <element signature="e#1517#1533#0" expanded="true" />
-            <element signature="e#1628#1636#0" expanded="true" />
-            <element signature="e#2609#2625#0" expanded="true" />
-            <element signature="e#2689#2697#0" expanded="true" />
-            <element signature="method#alpha_t#0;class#Main#0" expanded="false" />
-            <element signature="e#4066#4074#0" expanded="true" />
-            <element signature="e#4899#4915#0" expanded="true" />
-            <element signature="e#4966#4974#0" expanded="true" />
-            <element signature="e#5855#5863#0" expanded="true" />
-            <element signature="e#6588#6596#0" expanded="true" />
-            <element signature="e#7187#7195#0" expanded="true" />
-            <element signature="e#7814#7822#0" expanded="true" />
-            <element signature="e#8584#8600#0" expanded="true" />
-            <element signature="e#8736#8744#0" expanded="true" />
+            <element signature="e#1622#1638#0" expanded="true" />
+            <element signature="e#1733#1741#0" expanded="true" />
+            <element signature="e#3042#3050#0" expanded="true" />
+            <element signature="e#3654#3670#0" expanded="true" />
+            <element signature="e#3732#3740#0" expanded="true" />
+            <element signature="e#5104#5112#0" expanded="true" />
+            <element signature="e#5990#6006#0" expanded="true" />
+            <element signature="e#6054#6062#0" expanded="true" />
+            <element signature="e#6900#6908#0" expanded="true" />
+            <element signature="e#7633#7641#0" expanded="true" />
+            <element signature="e#8232#8240#0" expanded="true" />
+            <element signature="e#8859#8867#0" expanded="true" />
+            <element signature="e#9629#9645#0" expanded="true" />
+            <element signature="e#9781#9789#0" expanded="true" />
             <element signature="method#dot#0;class#Main#0" expanded="false" />
             <element signature="method#sumElements#0;class#Main#0" expanded="false" />
           </folding>

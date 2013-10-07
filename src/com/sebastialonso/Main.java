@@ -26,7 +26,9 @@ public class Main {
          */
         if (lines.size() == 4){
             Vector<String> observationVector = buildObservationVector(lines.get(3));
-            System.out.println(sumElements(forwardAlgorithm(transitionMatrix, emissionMatrix, initialVector, observationVector).lastElement()));
+            //System.out.println(sumElements(alphaPass(transitionMatrix, emissionMatrix, initialVector, observationVector).lastElement()));
+            System.out.println(problemTwo(transitionMatrix,emissionMatrix,initialVector,observationVector));
+
         }
 
 
@@ -59,17 +61,36 @@ public class Main {
         return matrix;
     }
 
-    private static Vector<Vector<Double>> forwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+    private static String problemTwo(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+
+        Vector<Vector<Double>> alphaMatrix = alphaPass(transition,emission, initial, observations);
+        Vector<Vector<Double>> betaMatrix = betaPass(transition, emission, initial, observations);
+        Double denominator = sumElements(alphaMatrix.lastElement());
+
+        int numberOfObservations = observations.size();
+        int numberOfStates = transition.size();
+        String response = "";
+        for (int t=0; t < numberOfObservations; t++){
+            Vector<Double> gamma = new Vector<Double>(numberOfStates);
+            for (int j=0; j < numberOfStates; j++){
+                gamma.add(alphaMatrix.get(t).get(j) * betaMatrix.get(t).get(j) / denominator);
+            }
+            response += gamma.indexOf(max(gamma)) +" ";
+        }
+        return response;
+
+    }
+    private static Vector<Vector<Double>> alphaPass(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
         int numberOfStates = transition.size();
         int numberOfTimes = observations.size();
 
         Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>(numberOfTimes);
-        Vector<Double> alphaATimeT = new Vector<Double>();
+        Vector<Double> alphaZero = new Vector<Double>();
         for (int j=0; j < numberOfStates; j++){
 
-            alphaATimeT.add(initial.get(j) * emission.get(j).get(Integer.parseInt(observations.elementAt(0))));
+           alphaZero.add(initial.get(j) * emission.get(j).get(Integer.parseInt(observations.elementAt(0))));
         }
-        alphaMatrix.add(alphaATimeT);
+        alphaMatrix.add(alphaZero);
         Vector<Vector<Double>> transitionTranspose = transpose(transition);
         for (int t=1; t < numberOfTimes; t++){
             String currentObservation = observations.elementAt(t);
@@ -97,28 +118,31 @@ public class Main {
         return newAlpha;
     }
 
-    private static Vector<Vector<Double>> backwardAlgorithm(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
-        //Compute and store forwardAlgorithm
-        Vector<Vector<Double>> alphaMatrix = forwardAlgorithm(transition, emission, initial, observations);
-        Double probObservationGivenModel = sumElements(alphaMatrix.lastElement());
+    /**
+     * Performs the beta-pass algorithm
+     * @param transition
+     * @param emission
+     * @param initial
+     * @param observations
+     * @return A Vector<Vector<Double>> with the rows being each beta_t
+     */
+    private static Vector<Vector<Double>> betaPass(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
         int numberOfObservations =  observations.size();
         int numberOfStates = transition.size();
-
+        System.out.println("observations size : "+ numberOfObservations);
         //Initialize beta
         Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>();
-        Vector<Double> betaAtTimet = new Vector<Double>();
+        Vector<Double> betaZero = new Vector<Double>(numberOfStates);
         for (int index=0; index < numberOfStates; index++){
-            betaAtTimet.add(1.0);
+            betaZero.add(1.0);
         }
-        betaMatrix.add(betaAtTimet);
-
-        //TODO Must reverse the rows! First is last and so on!
+        betaMatrix.add(betaZero);
         for (int t = numberOfObservations-2; t >= 0; t--){
-            String futureObservation = observations.elementAt(t);
-            betaMatrix.add(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, transition, emission, futureObservation));
+            String futureObservation = observations.elementAt(t+1);
+            System.out.println("t = " + t + " | " + "O_" + (t+1) +": " + futureObservation);
+            betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, transition, emission, futureObservation), 0);
         }
         return betaMatrix;
-        //Each turn beta is computed, alpha needs to be computed, and gamma needs to be computed
     }
 
     private static Vector<Double> beta_t(Vector<Double> posteriorBeta, int numberOfStates,
@@ -198,6 +222,18 @@ public class Main {
         return transposeMatrix;
     }
 
+    /**
+     * Returns the maximum value inside a vector
+     * @param vector Vector<Double> containing the maximum value we want to find
+     * @return The maximum value contained in the vector
+     */
+    private static Double max(Vector<Double> vector){
+        Double maxValue = 0.0;
+        for (Double element : vector){
+            if (element > maxValue) maxValue = element;
+        }
+        return maxValue;
+    }
     /**
      * Calculates the dot product between two vectors
      * @param first A Vector<Double> to be multiplied
