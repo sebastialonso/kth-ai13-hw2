@@ -21,13 +21,16 @@ public class Main {
         Vector<Vector<Double>> transitionMatrix = buildMatrix(lines.get(0));
         Vector<Vector<Double>> emissionMatrix = buildMatrix(lines.get(1));
         Vector<Double> initialVector = buildVector(lines.get(2));
-        /***********************HMM1
-        /***********************HMM2
-         */
+
         if (lines.size() == 4){
             Vector<String> observationVector = buildObservationVector(lines.get(3));
             //System.out.println(sumElements(alphaPass(transitionMatrix, emissionMatrix, initialVector, observationVector).lastElement()));
-            System.out.println(problemTwo(transitionMatrix,emissionMatrix,initialVector,observationVector));
+
+
+            //Decoder decoder = new Decoder(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            //System.out.println(decoder.decode());
+            Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            System.out.println(evaluator.evaluate());
 
         }
 
@@ -61,26 +64,36 @@ public class Main {
         return matrix;
     }
 
-    private static String problemTwo(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+    /**
+     * Buils a vector with the observations
+     * @param vectorLine The String that contains the number of observations and the observations
+     * @return A Vector<String> that contains the observations as String elements
+     */
+    private static Vector<String> buildObservationVector(String vectorLine){
+        String[] vectorContent = vectorLine.split(" ");
+        Vector<String> observations = new Vector<String>(Integer.parseInt(vectorContent[0]));
 
-        Vector<Vector<Double>> alphaMatrix = alphaPass(transition,emission, initial, observations);
-        Vector<Vector<Double>> betaMatrix = betaPass(transition, emission, initial, observations);
-        Double denominator = sumElements(alphaMatrix.lastElement());
-
-        int numberOfObservations = observations.size();
-        int numberOfStates = transition.size();
-        String response = "";
-        for (int t=0; t < numberOfObservations; t++){
-            Vector<Double> gamma = new Vector<Double>(numberOfStates);
-            for (int j=0; j < numberOfStates; j++){
-                gamma.add(alphaMatrix.get(t).get(j) * betaMatrix.get(t).get(j) / denominator);
-            }
-            response += gamma.indexOf(max(gamma)) +" ";
+        for (int i=1; i< vectorContent.length; i++){
+            observations.add(vectorContent[i]);
         }
-        return response;
-
+        return observations;
     }
-    private static Vector<Vector<Double>> alphaPass(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+
+    /**
+     * Buils a initial state vector for the HMM
+     * @param vectorLine The String that contains the number of rows, columns and the probability distribution
+     * @return A Vector<Double> with the probability distribution
+     */
+    private static Vector<Double> buildVector(String vectorLine){
+        String[] vectorContent = vectorLine.split(" ");
+        Vector<Double> vector = new Vector<Double>();
+        for (int i=2; i< vectorContent.length; i++ ){
+            vector.add(Double.parseDouble(vectorContent[i]));
+        }
+        return vector;
+    }
+
+    /*private static Vector<Vector<Double>> alphaPass(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
         int numberOfStates = transition.size();
         int numberOfTimes = observations.size();
 
@@ -97,7 +110,7 @@ public class Main {
             alphaMatrix.add(alpha_t(alphaMatrix.get(t-1), numberOfStates, transitionTranspose, emission,currentObservation));
         }
         return alphaMatrix;
-    }
+    }*/
 
     /**
      * Performs once cycle for a time t, updating the value of the alpha array
@@ -139,7 +152,7 @@ public class Main {
         betaMatrix.add(betaZero);
         for (int t = numberOfObservations-2; t >= 0; t--){
             String futureObservation = observations.elementAt(t+1);
-            System.out.println("t = " + t + " | " + "O_" + (t+1) +": " + futureObservation);
+            System.out.println("t = " + t + " | " + "O_" + (t + 1) + ": " + futureObservation);
             betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, transition, emission, futureObservation), 0);
         }
         return betaMatrix;
@@ -156,41 +169,13 @@ public class Main {
         return currentBeta;
     }
 
-    /**
-     * Buils a vector with the observations
-     * @param vectorLine The String that contains the number of observations and the observations
-     * @return A Vector<String> that contains the observations as String elements
-     */
-    private static Vector<String> buildObservationVector(String vectorLine){
-        String[] vectorContent = vectorLine.split(" ");
-        Vector<String> observations = new Vector<String>(Integer.parseInt(vectorContent[0]));
-
-        for (int i=1; i< vectorContent.length; i++){
-            observations.add(vectorContent[i]);
-        }
-        return observations;
-    }
-
-    /**
-     * Buils a initial state vector for the HMM
-     * @param vectorLine The String that contains the number of rows, columns and the probability distribution
-     * @return A Vector<Double> with the probability distribution
-     */
-    private static Vector<Double> buildVector(String vectorLine){
-        String[] vectorContent = vectorLine.split(" ");
-        Vector<Double> vector = new Vector<Double>();
-        for (int i=2; i< vectorContent.length; i++ ){
-            vector.add(Double.parseDouble(vectorContent[i]));
-        }
-        return vector;
-    }
 
     /**
      * Performs matrix multiplication, and returns the result
      * @param vector Vector that multiplies matrix
      * @param matrix Matrix being multiplied
      * @return result, vector with as many rows as vector and as many columns as matrix
-     */
+     *//*
     private static Vector<Double> multiplyVectorMatrix(Vector<Double> vector, Vector<Vector<Double>> matrix){
         //Initialized with matrix col number
         Vector<Double> result = new Vector<Double>(matrix.get(0).size());
@@ -202,11 +187,11 @@ public class Main {
         return result;
     }
 
-    /**
+    *//**
      * Transposes a matrix, i.e, changes its rows per its columns
      * @param matrix A Vector<Vector<Double>> matrix to be transposed
      * @return A Vector<Vector<Double>> matrix which has rows as the columns of A, and columns as the rows of A
-     */
+     *//*
     private static Vector<Vector<Double>> transpose(Vector<Vector<Double>> matrix){
         int rowNumber = matrix.size();
         int colNumber = matrix.get(0).size();
@@ -220,20 +205,8 @@ public class Main {
             transposeMatrix.add(newRows);
         }
         return transposeMatrix;
-    }
+    }*/
 
-    /**
-     * Returns the maximum value inside a vector
-     * @param vector Vector<Double> containing the maximum value we want to find
-     * @return The maximum value contained in the vector
-     */
-    private static Double max(Vector<Double> vector){
-        Double maxValue = 0.0;
-        for (Double element : vector){
-            if (element > maxValue) maxValue = element;
-        }
-        return maxValue;
-    }
     /**
      * Calculates the dot product between two vectors
      * @param first A Vector<Double> to be multiplied
@@ -246,20 +219,6 @@ public class Main {
             result += first.get(i) * second.get(i);
         }
         return result;
-    }
-
-    /**
-     * Sums the element of a vector
-     * @param vector Vector<Double> on which the internal sum is desired
-     * @return Double sum of the elements of the vector
-     */
-    private static Double sumElements(Vector<Double> vector){
-        Double sum = 0.0;
-        for (Double element : vector){
-            sum += element;
-        }
-
-        return sum;
     }
 
     private static String printMatrix(Vector<Vector<Double>> matrix){
