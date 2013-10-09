@@ -11,21 +11,25 @@ import java.util.Vector;
  */
 public class Evaluator {
 
-    private Vector<Vector<Double>> transitioMatrix;
+    private Vector<Vector<Double>> transitionMatrix;
     private Vector<Vector<Double>> emissionMatrix;
     private Vector<Double> initialVector;
     private Vector<String>  observationsVector;
 
 
     public Evaluator(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
-        this.transitioMatrix = transition;
+        this.transitionMatrix = transition;
         this.emissionMatrix = emission;
         this.initialVector = initial;
         this.observationsVector = observations;
     }
 
     public Double evaluate(){
-        int numberOfStates = this.transitioMatrix.size();
+        return sumElements(alphaPass().lastElement());
+    }
+
+    public Vector<Vector<Double>> alphaPass(){
+        int numberOfStates = this.transitionMatrix.size();
         int numberOfTimes = this.observationsVector.size();
 
         Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>(numberOfTimes);
@@ -35,14 +39,14 @@ public class Evaluator {
             alphaZero.add(this.initialVector.get(j) * this.emissionMatrix.get(j).get(Integer.parseInt(this.observationsVector.elementAt(0))));
         }
         alphaMatrix.add(alphaZero);
-        Vector<Vector<Double>> transitionTranspose = transpose(this.transitioMatrix);
+        Vector<Vector<Double>> transitionTranspose = transpose(this.transitionMatrix);
         for (int t=1; t < numberOfTimes; t++){
             String currentObservation = this.observationsVector.elementAt(t);
             alphaMatrix.add(alpha_t(alphaMatrix.get(t-1), numberOfStates, transitionTranspose, this.emissionMatrix,currentObservation));
         }
-        return sumElements(alphaMatrix.lastElement());
-    }
+        return alphaMatrix;
 
+    }
     /**
      * Performs once cycle for a time t, updating the value of the alpha array
      * @param previousAlpha Vector<Double> of the previous time
@@ -52,7 +56,7 @@ public class Evaluator {
      * @param currentObservation The String corresponding to the observation O_t
      * @return
      */
-    private static Vector<Double> alpha_t(Vector<Double> previousAlpha, int numberOfStates,
+    public static Vector<Double> alpha_t(Vector<Double> previousAlpha, int numberOfStates,
                                           Vector<Vector<Double>> transpose, Vector<Vector<Double>> emission,
                                           String currentObservation ){
         Vector<Double> newAlpha = new Vector<Double>();
@@ -60,6 +64,39 @@ public class Evaluator {
             newAlpha.add(dot(previousAlpha, transpose.get(i)) * emission.get(i).get(Integer.parseInt(currentObservation)));
         }
         return newAlpha;
+    }
+
+    /**
+     * Performs the beta-pass algorithm
+     * @return A Vector<Vector<Double>> with the rows being each beta_t
+     */
+    public Vector<Vector<Double>> betaPass(){
+        int numberOfObservations =  this.observationsVector.size();
+        int numberOfStates = this.transitionMatrix.size();
+        //Initialize beta
+        Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>();
+        Vector<Double> betaZero = new Vector<Double>(numberOfStates);
+        for (int index=0; index < numberOfStates; index++){
+            betaZero.add(1.0);
+        }
+        betaMatrix.add(betaZero);
+        for (int t = numberOfObservations-2; t >= 0; t--){
+            String futureObservation = this.observationsVector.elementAt(t+1);
+            System.out.println("t = " + t + " | " + "O_" + (t + 1) + ": " + futureObservation);
+            betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, this.transitionMatrix, this.emissionMatrix, futureObservation), 0);
+        }
+        return betaMatrix;
+    }
+
+    private static Vector<Double> beta_t(Vector<Double> posteriorBeta, int numberOfStates,
+                                         Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, String futureObservation){
+        Vector<Double> currentBeta = new Vector<Double>();
+        for (int i=0; i < numberOfStates; i++){
+            for (int j=0; j < numberOfStates; j++){
+                currentBeta.add(transition.get(i).get(j) * emission.get(j).get(Integer.parseInt(futureObservation)) * posteriorBeta.get(j));
+            }
+        }
+        return currentBeta;
     }
 
     /**
