@@ -1,6 +1,7 @@
 package com.sebastialonso;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Vector;
@@ -9,8 +10,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 	// write your code here
+        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
+        System.setIn(stream);
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
+
+
 
         Vector<String> lines = new Vector<String>();
         while (br.ready()){
@@ -28,8 +33,11 @@ public class Main {
 
             //Decoder decoder = new Decoder(transitionMatrix, emissionMatrix, initialVector, observationVector);
             //System.out.println(decoder.decode());
-            Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
-            System.out.println(evaluator.evaluate());
+            //Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            //System.out.println(evaluator.evaluate());
+
+            Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            System.out.println(learner.learn(15));
 
         }
 

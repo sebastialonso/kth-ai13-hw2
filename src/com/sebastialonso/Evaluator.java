@@ -82,7 +82,7 @@ public class Evaluator {
         betaMatrix.add(betaZero);
         for (int t = numberOfObservations-2; t >= 0; t--){
             String futureObservation = this.observationsVector.elementAt(t+1);
-            System.out.println("t = " + t + " | " + "O_" + (t + 1) + ": " + futureObservation);
+            //System.out.println("t = " + t + " | " + "O_" + (t + 1) + ": " + futureObservation);
             betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, this.transitionMatrix, this.emissionMatrix, futureObservation), 0);
         }
         return betaMatrix;
