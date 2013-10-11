@@ -15,6 +15,8 @@ public class Evaluator {
     private Vector<Vector<Double>> emissionMatrix;
     private Vector<Double> initialVector;
     private Vector<String>  observationsVector;
+    private int numberOfStates;
+    private int numberOfObservations;
 
 
     public Evaluator(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
@@ -22,6 +24,8 @@ public class Evaluator {
         this.emissionMatrix = emission;
         this.initialVector = initial;
         this.observationsVector = observations;
+        this.numberOfStates = transitionMatrix.size();
+        this.numberOfObservations = observationsVector.size();
     }
 
     public Double evaluate(){
@@ -29,43 +33,33 @@ public class Evaluator {
     }
 
     public Vector<Vector<Double>> alphaPass(){
-        int numberOfStates = this.transitionMatrix.size();
-        int numberOfTimes = this.observationsVector.size();
+        // TODO normalizar alphapass
+        Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
 
-        Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>(numberOfTimes);
         Vector<Double> alphaZero = new Vector<Double>();
-        for (int j=0; j < numberOfStates; j++){
+        for (int i=0; i < numberOfStates; i++){
 
-            alphaZero.add(this.initialVector.get(j) * this.emissionMatrix.get(j).get(Integer.parseInt(this.observationsVector.elementAt(0))));
+            alphaZero.add(initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0))));
         }
+        System.out.println(Main.printVector(alphaZero));
         alphaMatrix.add(alphaZero);
-        Vector<Vector<Double>> transitionTranspose = transpose(this.transitionMatrix);
-        for (int t=1; t < numberOfTimes; t++){
-            String currentObservation = this.observationsVector.elementAt(t);
-            alphaMatrix.add(alpha_t(alphaMatrix.get(t-1), numberOfStates, transitionTranspose, this.emissionMatrix,currentObservation));
+
+        for (int t=1; t < numberOfObservations; t++){
+            int currentObservation = Integer.parseInt(observationsVector.get(t));
+            Vector<Double> newAlpha = new Vector<Double>();
+            for (int i=0; i< numberOfStates; i++){
+                Double value = 0.0;
+                for (int j=0; j < numberOfStates; j++){
+                    value +=  alphaMatrix.get(t-1).get(j) * transitionMatrix.get(j).get(i);
+                }
+                value *= emissionMatrix.get(i).get(currentObservation);
+                newAlpha.add(value);
+            }
+            System.out.println(Main.printVector(newAlpha));
+            alphaMatrix.add(newAlpha);
         }
         return alphaMatrix;
-
     }
-    /**
-     * Performs once cycle for a time t, updating the value of the alpha array
-     * @param previousAlpha Vector<Double> of the previous time
-     * @param numberOfStates Number of slots in prevoiusAlpha (number of states of the HMM)
-     * @param transpose The transpose of the transition matrix, used for dot product
-     * @param emission The emission matrix, B.
-     * @param currentObservation The String corresponding to the observation O_t
-     * @return
-     */
-    public static Vector<Double> alpha_t(Vector<Double> previousAlpha, int numberOfStates,
-                                          Vector<Vector<Double>> transpose, Vector<Vector<Double>> emission,
-                                          String currentObservation ){
-        Vector<Double> newAlpha = new Vector<Double>();
-        for (Integer i=0; i< numberOfStates; i++){
-            newAlpha.add(dot(previousAlpha, transpose.get(i)) * emission.get(i).get(Integer.parseInt(currentObservation)));
-        }
-        return newAlpha;
-    }
-
     /**
      * Performs the beta-pass algorithm
      * @return A Vector<Vector<Double>> with the rows being each beta_t

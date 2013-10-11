@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 	// write your code here
-        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
+        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
         System.setIn(stream);
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
@@ -33,11 +33,11 @@ public class Main {
 
             //Decoder decoder = new Decoder(transitionMatrix, emissionMatrix, initialVector, observationVector);
             //System.out.println(decoder.decode());
-            //Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
-            //System.out.println(evaluator.evaluate());
+            Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            System.out.println(evaluator.evaluate());
 
-            Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
-            System.out.println(learner.learn(15));
+            //Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            //System.out.println(learner.learnReload(40));
 
         }
 
@@ -209,7 +209,7 @@ public class Main {
 
     }
 
-    private static String printVector(Vector<Double> vector){
+    public static String printVector(Vector<Double> vector){
         String st= "{ ";
         for (Double element : vector ){
             st += element + " ";
