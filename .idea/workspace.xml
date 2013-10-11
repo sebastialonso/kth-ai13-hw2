@@ -7,10 +7,10 @@
     <list default="true" id="a9da4d02-98b3-4392-bffb-cbac1947b741" name="Default" comment="" />
     <ignored path="hmm1.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381525485192" ignored="false" />
-    <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381526155680" ignored="false" />
+    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381528279887" ignored="false" />
+    <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381528504527" ignored="false" />
     <file path="/Decoder.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381267501310" ignored="false" />
-    <file path="/Evaluator.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381527307914" ignored="false" />
+    <file path="/Evaluator.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381528287310" ignored="false" />
     <file path="/Learner.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381523661086" ignored="false" />
     <file path="/Tuple.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381268690347" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -95,7 +95,7 @@
           <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="12" column="112" selection-start="402" selection-end="402" vertical-scroll-proportion="-3.84">
+                <state line="213" column="43" selection-start="8633" selection-end="8633" vertical-scroll-proportion="-4.32">
                   <folding>
                     <element signature="e#579#587#0" expanded="true" />
                     <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
@@ -104,22 +104,22 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Evaluator.java" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="Evaluator.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="35" column="26" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.21118012">
+                <state line="41" column="42" selection-start="1360" selection-end="1360" vertical-scroll-proportion="0.0">
                   <folding>
                     <element signature="e#1191#1207#0" expanded="true" />
-                    <element signature="e#1728#1736#0" expanded="true" />
+                    <element signature="e#1670#1678#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Learner.java" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="Learner.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="61" column="72" selection-start="2414" selection-end="2414" vertical-scroll-proportion="0.0">
+                <state line="61" column="45" selection-start="2414" selection-end="2414" vertical-scroll-proportion="-1.6397516">
                   <folding>
                     <element signature="e#1457#1465#0" expanded="true" />
                     <element signature="e#1536#1552#0" expanded="true" />
@@ -203,8 +203,8 @@
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Decoder.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Tuple.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Learner.java" />
-        <option value="$PROJECT_DIR$/src/com/sebastialonso/Main.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/sebastialonso/Main.java" />
       </list>
     </option>
   </component>
@@ -438,7 +438,7 @@
         <state line="69" column="39" selection-start="2878" selection-end="2878" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#1191#1207#0" expanded="true" />
-            <element signature="e#1728#1736#0" expanded="true" />
+            <element signature="e#1670#1678#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -547,9 +547,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="213" column="43" selection-start="8633" selection-end="8633" vertical-scroll-proportion="-4.32">
+          <folding>
+            <element signature="e#579#587#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="42" selection-start="1360" selection-end="1360" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#1191#1207#0" expanded="true" />
+            <element signature="e#1670#1678#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="72" selection-start="2414" selection-end="2414" vertical-scroll-proportion="0.0">
+        <state line="61" column="45" selection-start="2414" selection-end="2414" vertical-scroll-proportion="-1.6397516">
           <folding>
             <element signature="e#1457#1465#0" expanded="true" />
             <element signature="e#1536#1552#0" expanded="true" />
@@ -571,26 +591,6 @@
             <element signature="e#14734#14758#0" expanded="true" />
             <element signature="e#16109#16125#0" expanded="true" />
             <element signature="e#16254#16262#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="112" selection-start="402" selection-end="402" vertical-scroll-proportion="-3.84">
-          <folding>
-            <element signature="e#579#587#0" expanded="true" />
-            <element signature="method#buildMatrix#0;class#Main#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="26" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.21118012">
-          <folding>
-            <element signature="e#1191#1207#0" expanded="true" />
-            <element signature="e#1728#1736#0" expanded="true" />
           </folding>
         </state>
       </provider>

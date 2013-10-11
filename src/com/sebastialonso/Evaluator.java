@@ -41,12 +41,11 @@ public class Evaluator {
 
             alphaZero.add(initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0))));
         }
-        System.out.println(Main.printVector(alphaZero));
         alphaMatrix.add(alphaZero);
 
         for (int t=1; t < numberOfObservations; t++){
             int currentObservation = Integer.parseInt(observationsVector.get(t));
-            Vector<Double> newAlpha = new Vector<Double>();
+            Vector<Double> newAlpha= new Vector<Double>();
             for (int i=0; i< numberOfStates; i++){
                 Double value = 0.0;
                 for (int j=0; j < numberOfStates; j++){
@@ -55,7 +54,6 @@ public class Evaluator {
                 value *= emissionMatrix.get(i).get(currentObservation);
                 newAlpha.add(value);
             }
-            System.out.println(Main.printVector(newAlpha));
             alphaMatrix.add(newAlpha);
         }
         return alphaMatrix;
