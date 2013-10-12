@@ -191,14 +191,13 @@ public class Learner {
         Double oldLogProb = Double.NEGATIVE_INFINITY;
 
         Evaluator previousModel = new Evaluator(this.transitionMatrix, this.emissionMatrix, this.initialState, this.observationsVector);
-        Vector<Vector<Double>> alpha = previousModel.alphaPass();
+        Vector<Double> scalingFactor = new Vector<Double>();
+        Vector<Vector<Double>> alpha = previousModel.alphaPass(scalingFactor);
         Vector<Vector<Double>> beta = previousModel.betaPass();
 
         for (int iteration=0; iteration < numberOfIterations; iteration++){
-            Vector<Double> scalingFactor = new Vector<Double>();
 
             //Normalization of alpha
-            alpha = normalizeAndSetScalingVector(alpha, scalingFactor);
             Vector<Vector<Double>> transitionEstimation = estimateTransition(alpha, beta);
             Vector<Vector<Double>> emissionEstimation = estimateEmission(alpha, beta);
             Vector<Double> initialVectorEstimation = estimatePi(alpha, beta);

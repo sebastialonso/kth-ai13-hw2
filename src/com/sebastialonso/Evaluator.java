@@ -32,8 +32,11 @@ public class Evaluator {
         return sumElements(alphaPass().lastElement());
     }
 
+    /**
+     * Used to solve Problem 2: Evaluation. No scaling needed
+     * @return
+     */
     public Vector<Vector<Double>> alphaPass(){
-        // TODO normalizar alphapass
         Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
 
         Vector<Double> alphaZero = new Vector<Double>();
@@ -41,6 +44,7 @@ public class Evaluator {
 
             alphaZero.add(initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0))));
         }
+
         alphaMatrix.add(alphaZero);
 
         for (int t=1; t < numberOfObservations; t++){
@@ -54,6 +58,55 @@ public class Evaluator {
                 value *= emissionMatrix.get(i).get(currentObservation);
                 newAlpha.add(value);
             }
+
+            alphaMatrix.add(newAlpha);
+        }
+        return alphaMatrix;
+    }
+
+    /**
+     * Used to solve Problem 4: Learn. Scaling needed
+     * @param scalingFactor Vector<Double> where the scaling factors are stored.
+     * @return
+     */
+    public Vector<Vector<Double>> alphaPass(Vector<Double> scalingFactor){
+        Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
+
+        Vector<Double> alphaZero = new Vector<Double>();
+        Double scale = 0.0;
+        for (int i=0; i < numberOfStates; i++){
+
+            alphaZero.add(initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0))));
+            scale += initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0)));
+        }
+
+        //Scaling the vector
+        scalingFactor.add( 1/ scale);
+        for (int i=0; i < numberOfStates;i++){
+            alphaZero.set(i, alphaZero.get(i) * scalingFactor.get(0));
+        }
+
+        alphaMatrix.add(alphaZero);
+
+        for (int t=1; t < numberOfObservations; t++){
+            int currentObservation = Integer.parseInt(observationsVector.get(t));
+            Vector<Double> newAlpha= new Vector<Double>();
+            scale = 0.0;
+            for (int i=0; i< numberOfStates; i++){
+                Double value = 0.0;
+                for (int j=0; j < numberOfStates; j++){
+                    value +=  alphaMatrix.get(t-1).get(j) * transitionMatrix.get(j).get(i);
+                }
+                value *= emissionMatrix.get(i).get(currentObservation);
+                scale += value;
+                newAlpha.add(value);
+            }
+            //Scaling the whole vector
+            scalingFactor.add(1/ scale);
+            for (int i =0; i < numberOfStates; i++){
+                newAlpha.set(i, newAlpha.get(i) * scalingFactor.get(t));
+            }
+
             alphaMatrix.add(newAlpha);
         }
         return alphaMatrix;
@@ -62,20 +115,19 @@ public class Evaluator {
      * Performs the beta-pass algorithm
      * @return A Vector<Vector<Double>> with the rows being each beta_t
      */
-    public Vector<Vector<Double>> betaPass(){
-        int numberOfObservations =  this.observationsVector.size();
-        int numberOfStates = this.transitionMatrix.size();
-        //Initialize beta
+    public Vector<Vector<Double>> betaPass(Vector<Double> scalingFactor){
         Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>();
+
         Vector<Double> betaZero = new Vector<Double>(numberOfStates);
-        for (int index=0; index < numberOfStates; index++){
-            betaZero.add(1.0);
+        for (int i=0; i < numberOfStates; i++){
+            betaZero.add(scalingFactor.lastElement());
         }
+
         betaMatrix.add(betaZero);
+
         for (int t = numberOfObservations-2; t >= 0; t--){
-            String futureObservation = this.observationsVector.elementAt(t+1);
-            //System.out.println("t = " + t + " | " + "O_" + (t + 1) + ": " + futureObservation);
-            betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, this.transitionMatrix, this.emissionMatrix, futureObservation), 0);
+            String futureObservation = observationsVector.elementAt(t+1);
+            betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, transitionMatrix, emissionMatrix, futureObservation), 0);
         }
         return betaMatrix;
     }
