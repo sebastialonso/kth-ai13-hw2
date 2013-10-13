@@ -27,10 +27,12 @@ public class Main {
         double[][] transitionMatrix = buildMatrix(lines.get(0));
         double[][] emissionMatrix = buildMatrix(lines.get(1));
         double[] initialVector = buildVector(lines.get(2));
-        System.out.println(printVector(initialVector));
+        String[] observationVector = buildObservationVector(lines.get(3));
+        System.out.println(printVector(observationVector));
+        Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
 
         if (lines.size() == 4){
-            Vector<String> observationVector = buildObservationVector(lines.get(3));
+
 
             //Decoder decoder = new Decoder(transitionMatrix, emissionMatrix, initialVector, observationVector);
             //System.out.println(decoder.decode());
@@ -48,7 +50,7 @@ public class Main {
     /**
      * Builds a matrix out of a string with matrix information
      * @param matrixLine The String that contains number of rows, number of columns and elements
-     * @return A Vector<Vector<Double>> as a matrix
+     * @return A double[][] as a matrix
      */
     private static double[][] buildMatrix(String matrixLine){
         String[] matrixContent = matrixLine.split(" ");
@@ -71,14 +73,14 @@ public class Main {
     /**
      * Buils a vector with the observations
      * @param vectorLine The String that contains the number of observations and the observations
-     * @return A Vector<String> that contains the observations as String elements
+     * @return String[] that contains the observations as String elements
      */
-    private static Vector<String> buildObservationVector(String vectorLine){
+    private static String[] buildObservationVector(String vectorLine){
         String[] vectorContent = vectorLine.split(" ");
-        Vector<String> observations = new Vector<String>(Integer.parseInt(vectorContent[0]));
+        String[] observations = new String[Integer.parseInt(vectorContent[0])];
 
         for (int i=1; i< vectorContent.length; i++){
-            observations.add(vectorContent[i]);
+            observations[i-1] = vectorContent[i];
         }
         return observations;
     }
@@ -86,7 +88,7 @@ public class Main {
     /**
      * Buils a initial state vector for the HMM
      * @param vectorLine The String that contains the number of rows, columns and the probability distribution
-     * @return A Vector<Double> with the probability distribution
+     * @return A double[] with the initial probability distribution
      */
     private static double[] buildVector(String vectorLine){
         String[] vectorContent = vectorLine.split(" ");
@@ -161,6 +163,14 @@ public class Main {
         st += " }";
         return st;
 
+    }
+
+    public static String printVector(String[] vector){
+        String st= "{ ";
+        for (String element : vector ){
+            st += element + " ";
+        }
+        return st + "}";
     }
 
     public static String printVector(double[] vector){
