@@ -187,17 +187,59 @@ public class Learner {
         return printMatrixes(response);
     }
 
-    public String learn(int numberOfIterations){
+    public String learn(int iterations){
+        Double previousProb = Double.NEGATIVE_INFINITY;
+
+        Vector<Double> estimatedInitial = new Vector<Double>();
+        Vector<Vector<Double>> estimatedTransition = new Vector<Vector<Double>>();
+        Vector<Vector<Double>> estimatedEmission = new Vector<Vector<Double>>();
+
+        Evaluator currentModel = new Evaluator(transitionMatrix, emissionMatrix, initialState, observationsVector);
+        Vector<Double> scalingFactor = new Vector<Double>();
+        Vector<Vector<Double>> alpha = currentModel.alphaPass(scalingFactor);
+        Vector<Vector<Double>> beta = currentModel.betaPass(scalingFactor);
+
+        Vector<Vector<Vector<Double>>> answer = new Vector<Vector<Vector<Double>>>();
+        for (int iter=0; iter < iterations; iter++){
+
+
+            Vector<Vector<Vector<Double>>> xi = createXi(alpha, beta);
+            Vector<Vector<Double>> gamma = createGamma(xi);
+
+            estimatedInitial = estimatePi(gamma);
+            estimatedTransition = estimateTransition(xi, gamma);
+            estimatedEmission = estimateEmission(gamma);
+
+            Evaluator newModel = new Evaluator(estimatedTransition, estimatedEmission, estimatedInitial, observationsVector);
+
+            Double newModelProb = newModel.evaluate();
+            if (newModelProb > previousProb){
+                answer.add(estimatedTransition);
+                answer.add(estimatedEmission);
+                break;
+            }
+            else{
+                previousProb = newModelProb;
+                scalingFactor = new Vector<Double>();
+                alpha = newModel.alphaPass(scalingFactor);
+                beta = newModel.betaPass(scalingFactor);
+            }
+        }
+
+        return printMatrixes(answer);
+    }
+
+    /*public String learn1(int numberOfIterations){
         Double oldLogProb = Double.NEGATIVE_INFINITY;
 
         Evaluator previousModel = new Evaluator(this.transitionMatrix, this.emissionMatrix, this.initialState, this.observationsVector);
+
         Vector<Double> scalingFactor = new Vector<Double>();
         Vector<Vector<Double>> alpha = previousModel.alphaPass(scalingFactor);
-        Vector<Vector<Double>> beta = previousModel.betaPass();
+        Vector<Vector<Double>> beta = previousModel.betaPass(scalingFactor);
 
         for (int iteration=0; iteration < numberOfIterations; iteration++){
 
-            //Normalization of alpha
             Vector<Vector<Double>> transitionEstimation = estimateTransition(alpha, beta);
             Vector<Vector<Double>> emissionEstimation = estimateEmission(alpha, beta);
             Vector<Double> initialVectorEstimation = estimatePi(alpha, beta);
@@ -207,36 +249,29 @@ public class Learner {
             Double previousEstimation = previousModel.evaluate();
             Double currentEstimation = nextModel.evaluate();
             if (Math.abs( previousEstimation - currentEstimation) < DELTA){
-                System.out.println();
+                //System.out.println();
                 Vector<Vector<Vector<Double>>> answer = new Vector<Vector<Vector<Double>>>();
                 answer.add(transitionEstimation);
                 answer.add(emissionEstimation);
                 return printMatrixes(answer);
             }
             else {
-                alpha = nextModel.alphaPass();
-                beta = nextModel.betaPass();
+                alpha = nextModel.alphaPass(scalingFactor);
+                beta = nextModel.betaPass(scalingFactor);
                 previousModel = nextModel;
-                System.out.println("Previous Estimation: " + previousEstimation);
-                System.out.println("Current Estimation: " + currentEstimation);
+                //System.out.println("Previous Estimation: " + previousEstimation);
+                //System.out.println("Current Estimation: " + currentEstimation);
             }
         }
-        //Run out of computations
-
-
-        return  "Iterations completed. No convergence found";
-    }
+        return "asdads";
+    }*/
 
     /**
-     * Estimates the Emission Matrix B
-     * @param alpha
-     * @param beta
+     *
+     * @param gammaMatrix
      * @return
      */
-    private Vector<Vector<Double>> estimateEmission(Vector<Vector<Double>> alpha, Vector<Vector<Double>> beta){
-
-        Vector<Vector<Vector<Double>>> xiMatrix = createXi(alpha,beta);
-        Vector<Vector<Double>> gammaMatrix = createGamma(xiMatrix);
+    private Vector<Vector<Double>> estimateEmission(Vector<Vector<Double>> gammaMatrix){
 
         Vector<Vector<Double>> emission = new Vector<Vector<Double>>();
         for (int j=0; j < numberOfStates; j++){
@@ -258,15 +293,12 @@ public class Learner {
     }
 
     /**
-     * Estimates the Transition Matrix A
-     * @param alpha
-     * @param beta
+     *
+     * @param xiMatrix
+     * @param gammaMatrix
      * @return
      */
-    private Vector<Vector<Double>> estimateTransition(Vector<Vector<Double>> alpha, Vector<Vector<Double>> beta){
-
-        Vector<Vector<Vector<Double>>> xiMatrix = createXi(alpha,beta);
-        Vector<Vector<Double>> gammaMatrix = createGamma(xiMatrix);
+    private Vector<Vector<Double>> estimateTransition(Vector<Vector<Vector<Double>>> xiMatrix, Vector<Vector<Double>> gammaMatrix){
 
         Vector<Vector<Double>> transition = new Vector<Vector<Double>>();
         for (int i=0; i < numberOfStates; i++){
@@ -275,18 +307,9 @@ public class Learner {
             for (int j=0; j < numberOfStates; j++){
                 numerator = 0.0;
                 denominator = 0.0;
-                System.out.println("\n\n\n");
-                System.out.println("En j: " + j);
-                System.out.println("\n\n\n");
                 for (int t=0; t < numberOfObservations - 2; t++){
                     numerator += xiMatrix.get(t).get(i).get(j);
                     denominator += gammaMatrix.get(t).get(i);
-                    if (Double.isNaN(numerator) || Double.isNaN(denominator)){
-                        System.out.println("NaN Found");
-                        System.out.println("On time t= " + t);
-                        System.out.println("Numerator: " + numerator);
-                        System.out.println("Denominator: " + denominator);
-                    }
                 }
                 transitionRow.add(numerator / denominator);
             }
@@ -298,14 +321,11 @@ public class Learner {
     }
 
     /**
-     * Estimates the Initial Vector Pi
-     * @param alpha
-     * @param beta
+     *
+     * @param gammaMatrix
      * @return
      */
-    private Vector<Double> estimatePi(Vector<Vector<Double>> alpha, Vector<Vector<Double>> beta){
-        Vector<Vector<Vector<Double>>> xiMatrix = createXi(alpha,beta);
-        Vector<Vector<Double>> gammaMatrix = createGamma(xiMatrix);
+    private Vector<Double> estimatePi(Vector<Vector<Double>> gammaMatrix){
 
         Vector<Double> pi = new Vector<Double>();
         for (int i=0; i < gammaMatrix.get(0).size(); i++){

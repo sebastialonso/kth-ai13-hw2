@@ -29,45 +29,46 @@ public class Evaluator {
     }
 
     public Double evaluate(){
-        return sumElements(alphaPass().lastElement());
+        return alphaPass();
     }
 
     /**
      * Used to solve Problem 2: Evaluation. No scaling needed
      * @return
      */
-    public Vector<Vector<Double>> alphaPass(){
+    public Double alphaPass(){
         Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
 
         Vector<Double> alphaZero = new Vector<Double>();
+        Double scale = 0.0;
         for (int i=0; i < numberOfStates; i++){
 
             alphaZero.add(initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0))));
         }
-
         alphaMatrix.add(alphaZero);
 
         for (int t=1; t < numberOfObservations; t++){
-            int currentObservation = Integer.parseInt(observationsVector.get(t));
             Vector<Double> newAlpha= new Vector<Double>();
+
             for (int i=0; i< numberOfStates; i++){
                 Double value = 0.0;
+
                 for (int j=0; j < numberOfStates; j++){
                     value +=  alphaMatrix.get(t-1).get(j) * transitionMatrix.get(j).get(i);
                 }
-                value *= emissionMatrix.get(i).get(currentObservation);
+
+                value *= emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(t)));
                 newAlpha.add(value);
             }
-
             alphaMatrix.add(newAlpha);
         }
-        return alphaMatrix;
+        return sumElements(alphaMatrix.lastElement());
     }
 
     /**
      * Used to solve Problem 4: Learn. Scaling needed
      * @param scalingFactor Vector<Double> where the scaling factors are stored.
-     * @return
+     * @return A Matrix with the alpha Vector for each T
      */
     public Vector<Vector<Double>> alphaPass(Vector<Double> scalingFactor){
         Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
@@ -116,31 +117,32 @@ public class Evaluator {
      * @return A Vector<Vector<Double>> with the rows being each beta_t
      */
     public Vector<Vector<Double>> betaPass(Vector<Double> scalingFactor){
-        Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>();
+        Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>(numberOfObservations);
 
         Vector<Double> betaZero = new Vector<Double>(numberOfStates);
         for (int i=0; i < numberOfStates; i++){
             betaZero.add(scalingFactor.lastElement());
         }
 
+
         betaMatrix.add(betaZero);
 
         for (int t = numberOfObservations-2; t >= 0; t--){
             String futureObservation = observationsVector.elementAt(t+1);
-            betaMatrix.insertElementAt(beta_t(betaMatrix.get(betaMatrix.size() - 1), numberOfStates, transitionMatrix, emissionMatrix, futureObservation), 0);
+            Vector<Double> currentBeta = new Vector<Double>();
+            for (int i=0; i < numberOfStates; i++){
+                Double value = 0.0;
+                for (int j=0; j < numberOfStates; j++){
+                    value += transitionMatrix.get(i).get(j) * emissionMatrix.get(j).get(Integer.parseInt(futureObservation)) * betaMatrix.get(betaMatrix.size() - 1).get(j);
+                }
+                currentBeta.add(value);
+
+                //Scale b_t
+                currentBeta.set(i, currentBeta.get(i) * scalingFactor.get(t));
+            }
+            betaMatrix.add(betaMatrix.size() - 1 ,currentBeta);
         }
         return betaMatrix;
-    }
-
-    private static Vector<Double> beta_t(Vector<Double> posteriorBeta, int numberOfStates,
-                                         Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, String futureObservation){
-        Vector<Double> currentBeta = new Vector<Double>();
-        for (int i=0; i < numberOfStates; i++){
-            for (int j=0; j < numberOfStates; j++){
-                currentBeta.add(transition.get(i).get(j) * emission.get(j).get(Integer.parseInt(futureObservation)) * posteriorBeta.get(j));
-            }
-        }
-        return currentBeta;
     }
 
     /**

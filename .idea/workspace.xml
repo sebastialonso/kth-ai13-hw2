@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java" line="371" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java" line="391" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9da4d02-98b3-4392-bffb-cbac1947b741" name="Default" comment="" />
     <ignored path="hmm1.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381528279887" ignored="false" />
+    <file path="/Main.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381594038603" ignored="false" />
     <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381581277266" ignored="false" />
     <file path="/Decoder.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381267501310" ignored="false" />
-    <file path="/Evaluator.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381582146812" ignored="false" />
-    <file path="/Learner.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381581572290" ignored="false" />
+    <file path="/Evaluator.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381594829068" ignored="false" />
+    <file path="/Learner.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381595055545" ignored="false" />
     <file path="/Tuple.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381268690347" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +65,7 @@
       </breakpoint>
     </breakpoint_any>
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java" line="195" class="com.sebastialonso.Learner" package="com.sebastialonso">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java" line="135" class="com.sebastialonso.Evaluator" package="com.sebastialonso">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -89,13 +89,22 @@
     <favorites_list name="hmm1" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4810606">
+    <splitter split-orientation="horizontal" split-proportion="0.53652596">
       <split-first>
         <leaf>
           <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="12" column="112" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0">
+                <state line="39" column="46" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Evaluator.java" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="134" column="0" selection-start="4864" selection-end="4864" vertical-scroll-proportion="2.5061946">
                   <folding />
                 </state>
               </provider>
@@ -104,7 +113,7 @@
           <file leaf-file-name="Learner.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="195" column="0" selection-start="7806" selection-end="7806" vertical-scroll-proportion="0.0">
+                <state line="82" column="17" selection-start="3352" selection-end="3352" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -119,39 +128,24 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Evaluator.java" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="68" column="80" selection-start="2342" selection-end="2342" vertical-scroll-proportion="0.7221239">
-                  <folding>
-                    <element signature="method#alphaPass#1;class#Evaluator#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="Learner.java" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="Learner.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="191" column="31" selection-start="7528" selection-end="7528" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <element signature="e#7715#7723#0" expanded="true" />
-                  </folding>
+                <state line="215" column="43" selection-start="8755" selection-end="8755" vertical-scroll-proportion="0.021238938">
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Evaluator.java" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="Evaluator.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="131" column="0" selection-start="4863" selection-end="4863" vertical-scroll-proportion="0.42477876">
-                  <folding>
-                    <element signature="method#alphaPass#1;class#Evaluator#0" expanded="false" />
-                  </folding>
+                <state line="41" column="4" selection-start="1229" selection-end="1229" vertical-scroll-proportion="0.0">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -170,9 +164,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Decoder.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Tuple.java" />
-        <option value="$PROJECT_DIR$/src/com/sebastialonso/Learner.java" />
-        <option value="$PROJECT_DIR$/src/com/sebastialonso/Main.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/sebastialonso/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/sebastialonso/Learner.java" />
       </list>
     </option>
   </component>
@@ -207,6 +201,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -246,7 +241,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -335,7 +329,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1366" height="745" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -345,17 +339,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11893939" sideWeight="0.48178807" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11893939" sideWeight="0.93543047" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24469697" sideWeight="0.7450331" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40231788" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.06666667" sideWeight="0.5678808" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4321192" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="402" y="127" width="824" height="545" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -442,9 +436,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="69" column="39" selection-start="2878" selection-end="2878" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#alphaPass#1;class#Evaluator#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -518,24 +510,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="112" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="195" column="0" selection-start="7806" selection-end="7806" vertical-scroll-proportion="0.0">
+        <state line="39" column="46" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="80" selection-start="2342" selection-end="2342" vertical-scroll-proportion="0.7221239">
-          <folding>
-            <element signature="method#alphaPass#1;class#Evaluator#0" expanded="false" />
-          </folding>
+        <state line="41" column="4" selection-start="1229" selection-end="1229" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="215" column="43" selection-start="8755" selection-end="8755" vertical-scroll-proportion="0.021238938">
+          <folding />
         </state>
       </provider>
     </entry>

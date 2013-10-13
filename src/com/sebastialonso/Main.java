@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 	// write your code here
+        //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
         FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
         System.setIn(stream);
         BufferedReader br = new BufferedReader(
@@ -29,7 +30,6 @@ public class Main {
 
         if (lines.size() == 4){
             Vector<String> observationVector = buildObservationVector(lines.get(3));
-            //System.out.println(sumElements(alphaPass(transitionMatrix, emissionMatrix, initialVector, observationVector).lastElement()));
 
             //Decoder decoder = new Decoder(transitionMatrix, emissionMatrix, initialVector, observationVector);
             //System.out.println(decoder.decode());
@@ -37,7 +37,8 @@ public class Main {
             //System.out.println(evaluator.evaluate());
 
             Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
-            System.out.println(learner.learn(40));
+            System.out.println(learner.learn(60));
+            System.out.println(learner.learnReload(40));
 
         }
 
@@ -99,49 +100,6 @@ public class Main {
         }
         return vector;
     }
-
-    /*private static Vector<Vector<Double>> alphaPass(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
-        int numberOfStates = transition.size();
-        int numberOfTimes = observations.size();
-
-        Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>(numberOfTimes);
-        Vector<Double> alphaZero = new Vector<Double>();
-        for (int j=0; j < numberOfStates; j++){
-
-           alphaZero.add(initial.get(j) * emission.get(j).get(Integer.parseInt(observations.elementAt(0))));
-        }
-        alphaMatrix.add(alphaZero);
-        Vector<Vector<Double>> transitionTranspose = transpose(transition);
-        for (int t=1; t < numberOfTimes; t++){
-            String currentObservation = observations.elementAt(t);
-            alphaMatrix.add(alpha_t(alphaMatrix.get(t-1), numberOfStates, transitionTranspose, emission,currentObservation));
-        }
-        return alphaMatrix;
-    }*/
-
-    /**
-     * Performs once cycle for a time t, updating the value of the alpha array
-     * @param previousAlpha Vector<Double> of the previous time
-     * @param numberOfStates Number of slots in prevoiusAlpha (number of states of the HMM)
-     * @param transpose The transpose of the transition matrix, used for dot product
-     * @param emission The emission matrix, B.
-     * @param currentObservation The String corresponding to the observation O_t
-     * @return
-     */
-    private static Vector<Double> alpha_t(Vector<Double> previousAlpha, int numberOfStates,
-                                          Vector<Vector<Double>> transpose, Vector<Vector<Double>> emission,
-                                          String currentObservation ){
-        Vector<Double> newAlpha = new Vector<Double>();
-        for (Integer i=0; i< numberOfStates; i++){
-            newAlpha.add(dot(previousAlpha, transpose.get(i)) * emission.get(i).get(Integer.parseInt(currentObservation)));
-        }
-        return newAlpha;
-    }
-
-
-
-
-
 
     /**
      * Performs matrix multiplication, and returns the result
