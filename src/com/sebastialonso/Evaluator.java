@@ -11,21 +11,22 @@ import java.util.Vector;
  */
 public class Evaluator {
 
-    private Vector<Vector<Double>> transitionMatrix;
-    private Vector<Vector<Double>> emissionMatrix;
-    private Vector<Double> initialVector;
-    private Vector<String>  observationsVector;
+    private double[][] transitionMatrix;
+    private double[][] emissionMatrix;
+    private double[] initialVector;
+    private double[] scalingFactor;
+    private String[]  observationsVector;
     private int numberOfStates;
     private int numberOfObservations;
 
 
-    public Evaluator(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+    public Evaluator(double[][] transition, double[][] emission, double[] initial, String[] observations){
         this.transitionMatrix = transition;
         this.emissionMatrix = emission;
         this.initialVector = initial;
         this.observationsVector = observations;
-        this.numberOfStates = transitionMatrix.size();
-        this.numberOfObservations = observationsVector.size();
+        this.numberOfStates = transitionMatrix.length;
+        this.numberOfObservations = observationsVector.length;
     }
 
     public Double evaluate(){
@@ -37,32 +38,43 @@ public class Evaluator {
      * @return
      */
     public Double alphaPass(){
-        Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
+        double[][] alpha = new double[numberOfObservations][numberOfStates];
 
-        Vector<Double> alphaZero = new Vector<Double>();
-        Double scale = 0.0;
+        scalingFactor[0] = 0.0;
+
         for (int i=0; i < numberOfStates; i++){
-
-            alphaZero.add(initialVector.get(i) * emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(0))));
+            alpha[0][i] = initialVector[i] * emissionMatrix[i][Integer.parseInt(observationsVector[0])];
+            scalingFactor[0] += alpha[0][i];
         }
-        alphaMatrix.add(alphaZero);
 
-        for (int t=1; t < numberOfObservations; t++){
-            Vector<Double> newAlpha= new Vector<Double>();
+        //Scale alpha[0]
+        scalingFactor[0] = 1/scalingFactor[0];
+        for (int i=0; i < numberOfStates; i++){
+            alpha[0][i] *= scalingFactor[0];
+        }
 
-            for (int i=0; i< numberOfStates; i++){
-                Double value = 0.0;
-
+        //compute a_t(i)
+        for (int t = 1; t< numberOfObservations; t++){
+            scalingFactor[t] = 0.0;
+            for (int i=0; i < numberOfStates; i++){
+                alpha[t][i] = 0.0;
                 for (int j=0; j < numberOfStates; j++){
-                    value +=  alphaMatrix.get(t-1).get(j) * transitionMatrix.get(j).get(i);
+                    alpha[t][i] += alpha[t-1][j] * transitionMatrix[j][i];
                 }
-
-                value *= emissionMatrix.get(i).get(Integer.parseInt(observationsVector.get(t)));
-                newAlpha.add(value);
+                alpha[t][i] *= emissionMatrix[i][Integer.parseInt(observationsVector[t])];
+                scalingFactor[t] += alpha[t][i];
             }
-            alphaMatrix.add(newAlpha);
+            //Scale a_t(i)
+            scalingFactor[t] = 1/scalingFactor[t];
+            for (int i=0; i < numberOfStates; i++){
+                alpha[t][i] *= scalingFactor[t];
+            }
         }
-        return sumElements(alphaMatrix.lastElement());
+         double prob = 0;
+        for (int i=0; i < numberOfObservations; i++){
+            prob += Math.log(scalingFactor[i]);
+        }
+        return  -prob;
     }
 
     /**
@@ -70,7 +82,7 @@ public class Evaluator {
      * @param scalingFactor Vector<Double> where the scaling factors are stored.
      * @return A Matrix with the alpha Vector for each T
      */
-    public Vector<Vector<Double>> alphaPass(Vector<Double> scalingFactor){
+    /*public Vector<Vector<Double>> alphaPass(Vector<Double> scalingFactor){
         Vector<Vector<Double>> alphaMatrix = new Vector<Vector<Double>>();
 
         Vector<Double> alphaZero = new Vector<Double>();
@@ -111,12 +123,12 @@ public class Evaluator {
             alphaMatrix.add(newAlpha);
         }
         return alphaMatrix;
-    }
+    } */
     /**
      * Performs the beta-pass algorithm
      * @return A Vector<Vector<Double>> with the rows being each beta_t
      */
-    public Vector<Vector<Double>> betaPass(Vector<Double> scalingFactor){
+   /* public Vector<Vector<Double>> betaPass(Vector<Double> scalingFactor){
         Vector<Vector<Double>> betaMatrix = new Vector<Vector<Double>>(numberOfObservations);
 
         Vector<Double> betaZero = new Vector<Double>(numberOfStates);
@@ -143,7 +155,7 @@ public class Evaluator {
             betaMatrix.add(betaMatrix.size() - 1 ,currentBeta);
         }
         return betaMatrix;
-    }
+    }*/
 
     /**
      * Transposes a matrix, i.e, changes its rows per its columns

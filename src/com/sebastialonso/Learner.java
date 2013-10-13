@@ -187,7 +187,7 @@ public class Learner {
         return printMatrixes(response);
     }
 
-    public String learn(int iterations){
+   /*  public String learn(int iterations){
         Double previousProb = Double.NEGATIVE_INFINITY;
 
         Vector<Double> estimatedInitial = new Vector<Double>();
@@ -228,7 +228,7 @@ public class Learner {
 
         return printMatrixes(answer);
     }
-
+    */
     /*public String learn1(int numberOfIterations){
         Double oldLogProb = Double.NEGATIVE_INFINITY;
 

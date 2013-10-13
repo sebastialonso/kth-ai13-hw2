@@ -10,8 +10,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 	// write your code here
-        //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
-        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
+        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
+        //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
         System.setIn(stream);
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
@@ -24,9 +24,10 @@ public class Main {
         }
 
         //Data structures from file
-        Vector<Vector<Double>> transitionMatrix = buildMatrix(lines.get(0));
-        Vector<Vector<Double>> emissionMatrix = buildMatrix(lines.get(1));
-        Vector<Double> initialVector = buildVector(lines.get(2));
+        double[][] transitionMatrix = buildMatrix(lines.get(0));
+        double[][] emissionMatrix = buildMatrix(lines.get(1));
+        double[] initialVector = buildVector(lines.get(2));
+        System.out.println(printVector(initialVector));
 
         if (lines.size() == 4){
             Vector<String> observationVector = buildObservationVector(lines.get(3));
@@ -36,9 +37,8 @@ public class Main {
             //Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
             //System.out.println(evaluator.evaluate());
 
-            Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
-            System.out.println(learner.learn(60));
-            System.out.println(learner.learnReload(40));
+            //Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
+            //System.out.println(learner.learnReload(40));
 
         }
 
@@ -50,22 +50,18 @@ public class Main {
      * @param matrixLine The String that contains number of rows, number of columns and elements
      * @return A Vector<Vector<Double>> as a matrix
      */
-    private static Vector<Vector<Double>> buildMatrix(String matrixLine){
+    private static double[][] buildMatrix(String matrixLine){
         String[] matrixContent = matrixLine.split(" ");
-        Vector<Vector<Double>> matrix = new Vector<Vector<Double>>();
+        double[][] matrix = new double[Integer.parseInt(matrixContent[0])][Integer.parseInt(matrixContent[1])];
         int colIndex = 0;
         int rowIndex = 0;
-        Vector<Double> row = new Vector<Double>();
         for (int i=2; i < matrixContent.length; i++){
             if (rowIndex == 0 || rowIndex%(Integer.parseInt(matrixContent[0])) != 0){
-                //matrix.get(rowIndex).add(colIndex,Double.parseDouble(matrixContent[i]));
-                row.add(Double.parseDouble(matrixContent[i]));
+                matrix[rowIndex][colIndex] = Double.parseDouble(matrixContent[i]);
                 colIndex++;
                 if (colIndex != 0 && colIndex%(Integer.parseInt(matrixContent[1])) == 0){
                     rowIndex++;
                     colIndex = 0;
-                    matrix.add(row);
-                    row = new Vector<Double>();
                 }
             }
         }
@@ -92,11 +88,11 @@ public class Main {
      * @param vectorLine The String that contains the number of rows, columns and the probability distribution
      * @return A Vector<Double> with the probability distribution
      */
-    private static Vector<Double> buildVector(String vectorLine){
+    private static double[] buildVector(String vectorLine){
         String[] vectorContent = vectorLine.split(" ");
-        Vector<Double> vector = new Vector<Double>();
+        double[] vector = new double[Integer.parseInt(vectorContent[1])];
         for (int i=2; i< vectorContent.length; i++ ){
-            vector.add(Double.parseDouble(vectorContent[i]));
+            vector[i-2] = Double.parseDouble(vectorContent[i]);
         }
         return vector;
     }
@@ -152,10 +148,10 @@ public class Main {
         return result;
     }
 
-    private static String printMatrix(Vector<Vector<Double>> matrix){
+    private static String printMatrix(double[][] matrix){
         String st = "{\n";
 
-        for (Vector<Double> row : matrix){
+        for (double[] row : matrix){
             st += "{ ";
             for (Double element : row){
                 st += element + " ";
@@ -167,7 +163,7 @@ public class Main {
 
     }
 
-    public static String printVector(Vector<Double> vector){
+    public static String printVector(double[] vector){
         String st= "{ ";
         for (Double element : vector ){
             st += element + " ";
