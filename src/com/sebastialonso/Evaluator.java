@@ -11,16 +11,15 @@ import java.util.Vector;
  */
 public class Evaluator {
 
-    private double[][] transitionMatrix;
-    private double[][] emissionMatrix;
-    private double[] initialVector;
-    private double[] scalingFactor;
+    private Double[][] transitionMatrix;
+    private Double[][] emissionMatrix;
+    private Double[] initialVector;
     private String[]  observationsVector;
     private int numberOfStates;
     private int numberOfObservations;
 
 
-    public Evaluator(double[][] transition, double[][] emission, double[] initial, String[] observations){
+    public Evaluator(Double[][] transition, Double[][] emission, Double[] initial, String[] observations){
         this.transitionMatrix = transition;
         this.emissionMatrix = emission;
         this.initialVector = initial;
@@ -30,52 +29,51 @@ public class Evaluator {
     }
 
     public Double evaluate(){
-        return alphaPass();
+        return sumElements(alphaPass()[numberOfObservations -1]);
     }
 
     /**
-     * Used to solve Problem 2: Evaluation. No scaling needed
+     * Used to solve Problem 2: Evaluation.
      * @return
      */
-    public Double alphaPass(){
-        double[][] alpha = new double[numberOfObservations][numberOfStates];
-
-        scalingFactor[0] = 0.0;
+    public Double[][] alphaPass(){
+        Double[][] alpha = new Double[numberOfObservations][numberOfStates];
 
         for (int i=0; i < numberOfStates; i++){
-            alpha[0][i] = initialVector[i] * emissionMatrix[i][Integer.parseInt(observationsVector[0])];
-            scalingFactor[0] += alpha[0][i];
-        }
+            alpha[0][i] = Extended.eproduct(
+                    Extended.eln(initialVector[i]),
+                    Extended.eln(emissionMatrix[i][Integer.parseInt(observationsVector[0])]));
 
-        //Scale alpha[0]
-        scalingFactor[0] = 1/scalingFactor[0];
-        for (int i=0; i < numberOfStates; i++){
-            alpha[0][i] *= scalingFactor[0];
         }
 
         //compute a_t(i)
         for (int t = 1; t< numberOfObservations; t++){
-            scalingFactor[t] = 0.0;
             for (int i=0; i < numberOfStates; i++){
-                alpha[t][i] = 0.0;
+                Double val = Double.NaN;
                 for (int j=0; j < numberOfStates; j++){
-                    alpha[t][i] += alpha[t-1][j] * transitionMatrix[j][i];
+                    val = Extended.esum(val, Extended.eproduct(alpha[t - 1][j], Extended.eln(transitionMatrix[j][i])));
                 }
-                alpha[t][i] *= emissionMatrix[i][Integer.parseInt(observationsVector[t])];
-                scalingFactor[t] += alpha[t][i];
-            }
-            //Scale a_t(i)
-            scalingFactor[t] = 1/scalingFactor[t];
-            for (int i=0; i < numberOfStates; i++){
-                alpha[t][i] *= scalingFactor[t];
+                alpha[t][i] = Extended.eproduct(val, Extended.eln(emissionMatrix[i][Integer.parseInt(observationsVector[t])]));
+
             }
         }
-         double prob = 0;
-        for (int i=0; i < numberOfObservations; i++){
-            prob += Math.log(scalingFactor[i]);
-        }
-        return  -prob;
+
+        return alpha;
     }
+
+    /**
+     * Sums the element of a vector
+     * @param vector Vector<Double> on which the internal esum is desired
+     * @return Double esum of the elements of the vector
+     */
+    public Double sumElements(Double[] vector){
+        Double response = 0.0;
+        for (int i=0; i< numberOfStates; i++){
+            response = Extended.esum(response, vector[i]);
+        }
+        return Extended.eexp(response)-1;
+    }
+}
 
     /**
      * Used to solve Problem 4: Learn. Scaling needed
@@ -157,52 +155,4 @@ public class Evaluator {
         return betaMatrix;
     }*/
 
-    /**
-     * Transposes a matrix, i.e, changes its rows per its columns
-     * @param matrix A Vector<Vector<Double>> matrix to be transposed
-     * @return A Vector<Vector<Double>> matrix which has rows as the columns of A, and columns as the rows of A
-     */
-    public static Vector<Vector<Double>> transpose(Vector<Vector<Double>> matrix){
-        int rowNumber = matrix.size();
-        int colNumber = matrix.get(0).size();
-        Vector<Vector<Double>> transposeMatrix = new Vector<Vector<Double>>(rowNumber);
-        //We scanned the whole row
-        for (int i=0; i< colNumber;i++){
-            Vector<Double> newRows = new Vector<Double>(colNumber);
-            for (Vector<Double> row : matrix){
-                newRows.add(row.get(i));
-            }
-            transposeMatrix.add(newRows);
-        }
-        return transposeMatrix;
-    }
-
-    /**
-     * Sums the element of a vector
-     * @param vector Vector<Double> on which the internal sum is desired
-     * @return Double sum of the elements of the vector
-     */
-    private static Double sumElements(Vector<Double> vector){
-        Double sum = 0.0;
-        for (Double element : vector){
-            sum += element;
-        }
-
-        return sum;
-    }
-
-    /**
-     * Calculates the dot product between two vectors
-     * @param first A Vector<Double> to be multiplied
-     * @param second The second Vector<Double> to be multiplied
-     * @return A Double with the value of the dot product
-     */
-    private static Double dot(Vector<Double> first, Vector<Double> second){
-        Double result = 0.0;
-        for (int i=0; i< first.size(); i++){
-            result += first.get(i) * second.get(i);
-        }
-        return result;
-    }
-}
 

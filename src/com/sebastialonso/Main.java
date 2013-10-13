@@ -10,9 +10,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 	// write your code here
-        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
+        //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
         //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
-        System.setIn(stream);
+        //System.setIn(stream);
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
 
@@ -24,12 +24,18 @@ public class Main {
         }
 
         //Data structures from file
-        double[][] transitionMatrix = buildMatrix(lines.get(0));
-        double[][] emissionMatrix = buildMatrix(lines.get(1));
-        double[] initialVector = buildVector(lines.get(2));
+        Double[][] transitionMatrix = buildMatrix(lines.get(0));
+        Double[][] emissionMatrix = buildMatrix(lines.get(1));
+        Double[] initialVector = buildVector(lines.get(2));
+
+        //System.out.println("A: " + printMatrix(transitionMatrix));
+        //System.out.println("B: " + printMatrix(emissionMatrix));
+        //System.out.println("Pi: " + printVector(initialVector));
         String[] observationVector = buildObservationVector(lines.get(3));
-        System.out.println(printVector(observationVector));
+        //System.out.println(printVector(observationVector));
+
         Evaluator evaluator = new Evaluator(transitionMatrix, emissionMatrix, initialVector, observationVector);
+        System.out.println(evaluator.evaluate());
 
         if (lines.size() == 4){
 
@@ -52,9 +58,9 @@ public class Main {
      * @param matrixLine The String that contains number of rows, number of columns and elements
      * @return A double[][] as a matrix
      */
-    private static double[][] buildMatrix(String matrixLine){
+    private static Double[][] buildMatrix(String matrixLine){
         String[] matrixContent = matrixLine.split(" ");
-        double[][] matrix = new double[Integer.parseInt(matrixContent[0])][Integer.parseInt(matrixContent[1])];
+        Double[][] matrix = new Double[Integer.parseInt(matrixContent[0])][Integer.parseInt(matrixContent[1])];
         int colIndex = 0;
         int rowIndex = 0;
         for (int i=2; i < matrixContent.length; i++){
@@ -90,9 +96,9 @@ public class Main {
      * @param vectorLine The String that contains the number of rows, columns and the probability distribution
      * @return A double[] with the initial probability distribution
      */
-    private static double[] buildVector(String vectorLine){
+    private static Double[] buildVector(String vectorLine){
         String[] vectorContent = vectorLine.split(" ");
-        double[] vector = new double[Integer.parseInt(vectorContent[1])];
+        Double[] vector = new Double[Integer.parseInt(vectorContent[1])];
         for (int i=2; i< vectorContent.length; i++ ){
             vector[i-2] = Double.parseDouble(vectorContent[i]);
         }
@@ -137,10 +143,10 @@ public class Main {
     }*/
 
     /**
-     * Calculates the dot product between two vectors
+     * Calculates the dot eproduct between two vectors
      * @param first A Vector<Double> to be multiplied
      * @param second The second Vector<Double> to be multiplied
-     * @return A Double with the value of the dot product
+     * @return A Double with the value of the dot eproduct
      */
     private static Double dot(Vector<Double> first, Vector<Double> second){
         Double result = 0.0;
@@ -150,10 +156,10 @@ public class Main {
         return result;
     }
 
-    private static String printMatrix(double[][] matrix){
+    private static String printMatrix(Double[][] matrix){
         String st = "{\n";
 
-        for (double[] row : matrix){
+        for (Double[] row : matrix){
             st += "{ ";
             for (Double element : row){
                 st += element + " ";
@@ -173,7 +179,7 @@ public class Main {
         return st + "}";
     }
 
-    public static String printVector(double[] vector){
+    public static String printVector(Double[] vector){
         String st= "{ ";
         for (Double element : vector ){
             st += element + " ";
