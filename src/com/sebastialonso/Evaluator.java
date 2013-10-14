@@ -78,7 +78,7 @@ public class Evaluator {
      * Performs the beta-pass algorithm
      * @return A Vector<Vector<Double>> with the rows being each beta_t
      */
-   public Double[][] betaPass(Vector<Double> scalingFactor){
+   public Double[][] betaPass(){
         Double[][] betaMatrix = new Double[numberOfObservations][numberOfStates];
 
         for (int i=0; i < numberOfStates; i++){

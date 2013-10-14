@@ -1,12 +1,5 @@
 package com.sebastialonso;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Sebastián González Mardones
- * Date: 10/13/13
- * Time: 6:23 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Extended {
     public static Double eexp(Double value){
         if (value.isNaN()) return 0.0;
