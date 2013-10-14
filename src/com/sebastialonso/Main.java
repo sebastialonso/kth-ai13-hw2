@@ -3,7 +3,6 @@ package com.sebastialonso;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 import java.util.Vector;
 
 public class Main {
@@ -11,8 +10,8 @@ public class Main {
     public static void main(String[] args) throws Exception{
 	// write your code here
         //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm2-sample-data/hmm2_01.in");
-        FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_01.in");
-        System.setIn(stream);
+        //FileInputStream stream = new FileInputStream("/home/seba/kth/ai13/hw2/kth-ai-hmm4-sample-data/hmm4_02.in");
+        //System.setIn(stream);
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(System.in));
 
@@ -38,7 +37,8 @@ public class Main {
         //System.out.println(evaluator.evaluate());
 
         Learner learner = new Learner(transitionMatrix, emissionMatrix, initialVector, observationVector);
-        System.out.println(learner.learn(100));
+        //System.out.println(learner.learn(100));
+        System.out.println(learner.learnReload(30));
     }
 
     /**
@@ -93,37 +93,6 @@ public class Main {
         return vector;
     }
 
-    private static String printMatrix(Double[][] matrix){
-        String st = "{\n";
-
-        for (Double[] row : matrix){
-            st += "{ ";
-            for (Double element : row){
-                st += element + " ";
-            }
-            st += "}\n";
-        }
-        st += " }";
-        return st;
-
-    }
-
-    public static String printVector(String[] vector){
-        String st= "{ ";
-        for (String element : vector ){
-            st += element + " ";
-        }
-        return st + "}";
-    }
-
-    public static String printVector(Double[] vector){
-        String st= "{ ";
-        for (Double element : vector ){
-            st += element + " ";
-        }
-        return st + "}";
-    }
-
     public static String matrixToString(Double[][] mat){
         String st= mat.length + " " + mat[0].length +" ";
         for (Double[] row : mat){
@@ -147,5 +116,38 @@ public class Main {
         }
 
         return st;
+    }
+
+    /**
+     * DEBUG: Prints a matrix
+     * @param matrix
+     * @return
+     */
+    private static String printMatrix(Double[][] matrix){
+        String st = "{\n";
+
+        for (Double[] row : matrix){
+            st += "{ ";
+            for (Double element : row){
+                st += element + " ";
+            }
+            st += "}\n";
+        }
+        st += " }";
+        return st;
+
+    }
+
+    /**
+     * DEBUG: Prints a vector
+     * @param vector
+     * @return
+     */
+    public static String printVector(Double[] vector){
+        String st= "{ ";
+        for (Double element : vector ){
+            st += element + " ";
+        }
+        return st + "}";
     }
 }

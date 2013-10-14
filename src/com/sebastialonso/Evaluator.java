@@ -1,14 +1,5 @@
 package com.sebastialonso;
 
-import java.util.Vector;
-
-/**
- * Created with IntelliJ IDEA.
- * User: Sebastián González Mardones
- * Date: 10/8/13
- * Time: 10:47 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Evaluator {
 
     private Double[][] transitionMatrix;
@@ -28,6 +19,10 @@ public class Evaluator {
         this.numberOfObservations = observationsVector.length;
     }
 
+    /**
+     * Solves Problem 2: returns the probability for an observation sequence given the Model
+     * @return
+     */
     public Double evaluate(){
         return sumElements(alphaPass()[numberOfObservations -1]);
     }
@@ -62,19 +57,6 @@ public class Evaluator {
     }
 
     /**
-     * Sums the element of a vector
-     * @param vector Vector<Double> on which the internal esum is desired
-     * @return Double esum of the elements of the vector
-     */
-    public Double sumElements(Double[] vector){
-        Double response = 0.0;
-        for (int i=0; i< numberOfStates; i++){
-            response = Extended.esum(response, vector[i]);
-        }
-        return Extended.eexp(response)-1;
-    }
-
-    /**
      * Performs the beta-pass algorithm
      * @return A Vector<Vector<Double>> with the rows being each beta_t
      */
@@ -100,6 +82,19 @@ public class Evaluator {
         }
         return betaMatrix;
    }
+
+    /**
+     * Sums the element of a vector
+     * @param vector Vector<Double> on which the internal esum is desired
+     * @return Double esum of the elements of the vector
+     */
+    public Double sumElements(Double[] vector){
+        Double response = 0.0;
+        for (int i=0; i< numberOfStates; i++){
+            response = Extended.esum(response, vector[i]);
+        }
+        return Extended.eexp(response)-1;
+    }
 }
 
 

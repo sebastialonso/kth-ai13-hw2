@@ -22,18 +22,19 @@ public class Learner {
         this.numberOfSymbols = emission[0].length;
     }
 
-    /**public String learnReload(int iterations){
+    public String learnReload(int iterations){
         Double oldLogProb = Double.NEGATIVE_INFINITY;
-        Vector<Vector<Double>> transition = transitionMatrix;
-        Vector<Vector<Double>> emission = emissionMatrix;
-        Vector<Double> initial = initialState;
+
+        Double[] initial = initialState;
+        Double[][] transition = transitionMatrix;
+        Double[][] emission =  emissionMatrix;
 
 
         for (int iteration=0; iteration < iterations; iteration++){
 
-            Vector<Double> estimatedInitial = new Vector<Double>();
-            Vector<Vector<Double>> estimatedTransition = new Vector<Vector<Double>>();
-            Vector<Vector<Double>> estimatedEmission = new Vector<Vector<Double>>();
+            Double[] estimatedInitial = new Double[numberOfStates];
+            Double[][] estimatedTransition = new Double[numberOfStates][numberOfStates];
+            Double[][] estimatedEmission = new Double[numberOfStates][numberOfSymbols];
 
             ///The alpha pass
             double[] scalingFactor = new double[numberOfObservations];
@@ -48,7 +49,7 @@ public class Learner {
             scalingFactor[0] = 0.0;
 
             for (int i=0; i < numberOfStates; i++){
-                alpha[0][i] = initial.get(i) * emission.get(i).get(Integer.parseInt(observationsVector.get(0)));
+                alpha[0][i] = initial[i] * emission[i][Integer.parseInt(observationsVector[0])];
                 scalingFactor[0] += alpha[0][i];
             }
 
@@ -64,9 +65,9 @@ public class Learner {
                 for (int i=0; i < numberOfStates; i++){
                     alpha[t][i] = 0.0;
                     for (int j=0; j < numberOfStates; j++){
-                        alpha[t][i] += alpha[t-1][j] * transition.get(j).get(i);
+                        alpha[t][i] += alpha[t-1][j] * transition[j][i];
                     }
-                    alpha[t][i] *= emission.get(i).get(Integer.parseInt(observationsVector.get(t)));
+                    alpha[t][i] *= emission[i][Integer.parseInt(observationsVector[t])];
                     scalingFactor[t] += alpha[t][i];
                 }
                 //Scale a_t(i)
@@ -87,7 +88,7 @@ public class Learner {
                 for (int i=0; i < numberOfStates; i++){
                     beta[t][i] = 0.0;
                     for (int j=0; j < numberOfStates; j++){
-                        beta[t][i] = beta[t][i] + transition.get(i).get(j) * emission.get(j).get(Integer.parseInt(observationsVector.get(t+1))) * beta[t+1][j];
+                        beta[t][i] = beta[t][i] + transition[i][j] * emission[j][Integer.parseInt(observationsVector[t+1])] * beta[t+1][j];
                     }
                     //scale beta_t
                     beta[t][i] *= scalingFactor[t];
@@ -99,13 +100,13 @@ public class Learner {
                 double denominator = 0.0;
                 for (int i=0; i < numberOfStates; i++){
                     for (int j=0; j< numberOfStates; j++){
-                        denominator += alpha[t][i] * transition.get(i).get(j) * emission.get(j).get(Integer.parseInt(observationsVector.get(t+1))) * beta[t+1][j];
+                        denominator += alpha[t][i] * transition[i][j] * emission[j][Integer.parseInt(observationsVector[t+1])] * beta[t+1][j];
                     }
                 }
                 for (int i=0; i < numberOfStates; i++){
                     createGamma[t][i] = 0.0;
                     for (int j=0; j < numberOfStates; j++){
-                        diGamma[t][i][j] = (alpha[t][i] * transition.get(i).get(j)*emission.get(j).get(Integer.parseInt(observationsVector.get(t+1))) * beta[t+1][j])/ denominator;
+                        diGamma[t][i][j] = (alpha[t][i] * transition[i][j] * emission[j][Integer.parseInt(observationsVector[t+1])] * beta[t+1][j])/ denominator;
                         createGamma[t][i] += diGamma[t][i][j];
                     }
                 }
@@ -114,12 +115,11 @@ public class Learner {
             ///Re-estimate model
             //Re.estimate pi
             for (int i=0; i < numberOfStates; i++){
-                estimatedInitial.add(createGamma[0][i]);
+                estimatedInitial[i] = createGamma[0][i];
             }
 
             //Re-estimate A
             for (int i=0; i < numberOfStates; i++){
-                Vector<Double> estimatedRow = new Vector<Double>();
                 for (int j=0; j < numberOfStates; j++){
                     double numerator = 0.0;
                     double denominator = 0.0;
@@ -128,26 +128,23 @@ public class Learner {
                         numerator += diGamma[t][i][j];
                         denominator += createGamma[t][i];
                     }
-                    estimatedRow.add(numerator/denominator);
+                    estimatedTransition[i][j] =  numerator/denominator;
                 }
-                estimatedTransition.add(estimatedRow);
             }
 
             //Re-estimate B
             for (int i=0; i < numberOfStates; i++){
-                Vector<Double> estimatedEmissionRow = new Vector<Double>();
                 for (int j=0; j < numberOfSymbols; j++){
                     double numerator = 0.0;
                     double denominator = 0.0;
                     for (int t=0; t < numberOfObservations -1; t++){
-                        if (Integer.parseInt(observationsVector.get(t)) ==  j){
+                        if (Integer.parseInt(observationsVector[t]) ==  j){
                             numerator += createGamma[t][i];
                         }
                         denominator += createGamma[t][i];
                     }
-                    estimatedEmissionRow.add(numerator/denominator);
+                    estimatedEmission[i][j] = numerator/denominator;
                 }
-                estimatedEmission.add(estimatedEmissionRow);
             }
 
             ///Compute log[P(O|lambda)]
@@ -173,12 +170,13 @@ public class Learner {
 
 
         }
-        Vector<Vector<Vector<Double>>> response = new Vector<Vector<Vector<Double>>>();
-        response.add(transition);
-        response.add(emission);
 
-        return printMatrixes(response);
-    }  */
+        String[] response = new String[2];
+        response[0] = Main.matrixToString(transition);
+        response[1] = Main.matrixToString(emission);
+
+        return Main.printMatrixes(response);
+    }
 
 
     public String learn(int iterations){

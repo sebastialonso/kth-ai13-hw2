@@ -1,6 +1,7 @@
 package com.sebastialonso;
 
 public class Extended {
+
     public static Double eexp(Double value){
         if (value.isNaN()) return 0.0;
         else return Math.exp(value);
