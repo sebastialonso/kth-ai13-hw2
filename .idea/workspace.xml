@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java" line="391" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="a9da4d02-98b3-4392-bffb-cbac1947b741" name="Default" comment="" />
     <ignored path="hmm1.iws" />
@@ -11,7 +8,7 @@
     <file path="/fragment.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381691103085" ignored="false" />
     <file path="/Decoder.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381267501310" ignored="false" />
     <file path="/Evaluator.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381706868065" ignored="false" />
-    <file path="/Learner.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381595055545" ignored="false" />
+    <file path="/Learner.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381710149833" ignored="false" />
     <file path="/Tuple.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381268690347" ignored="false" />
     <file path="/Extended.java" changelist="a9da4d02-98b3-4392-bffb-cbac1947b741" time="1381691171268" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -84,11 +81,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Learner.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Learner.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="17" selection-start="3352" selection-end="3352" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="303" column="26" selection-start="11368" selection-end="11368" vertical-scroll-proportion="0.6708229">
+              <folding>
+                <element signature="method#learnReload#0;class#Learner#0" expanded="false" />
+                <element signature="e#9335#9351#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,10 +102,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Evaluator.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Evaluator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="13" selection-start="3498" selection-end="3498" vertical-scroll-proportion="0.7331671">
+            <state line="99" column="13" selection-start="3498" selection-end="3498" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -132,10 +132,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Decoder.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Tuple.java" />
-        <option value="$PROJECT_DIR$/src/com/sebastialonso/Learner.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Extended.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Main.java" />
         <option value="$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/sebastialonso/Learner.java" />
       </list>
     </option>
   </component>
@@ -405,7 +405,10 @@
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="51" selection-start="1726" selection-end="1726" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="method#learnReload#0;class#Learner#0" expanded="false" />
+            <element signature="e#9335#9351#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -463,13 +466,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="17" selection-start="3352" selection-end="3352" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Extended.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="39" selection-start="739" selection-end="739" vertical-scroll-proportion="0.0">
@@ -493,8 +489,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Evaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="13" selection-start="3498" selection-end="3498" vertical-scroll-proportion="0.7331671">
+        <state line="99" column="13" selection-start="3498" selection-end="3498" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sebastialonso/Learner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="303" column="26" selection-start="11368" selection-end="11368" vertical-scroll-proportion="0.6708229">
+          <folding>
+            <element signature="method#learnReload#0;class#Learner#0" expanded="false" />
+            <element signature="e#9335#9351#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

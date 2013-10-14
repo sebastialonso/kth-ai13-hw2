@@ -10,24 +10,24 @@ import java.util.Vector;
  * To change this template use File | Settings | File Templates.
  */
 public class Learner {
-    private Vector<Vector<Double>> transitionMatrix;
-    private Vector<Vector<Double>> emissionMatrix;
-    private Vector<Double> initialState;
-    private Vector<String> observationsVector;
+    private Double[][] transitionMatrix;
+    private Double[][] emissionMatrix;
+    private Double[] initialState;
+    private String[] observationsVector;
     private int numberOfStates;
     private int numberOfObservations;
     private int numberOfSymbols;
     private  double DELTA = 1e-13;
 
 
-    public Learner(Vector<Vector<Double>> transition, Vector<Vector<Double>> emission, Vector<Double> initial, Vector<String> observations){
+    public Learner(Double[][] transition, Double[][] emission, Double[] initial, String[] observations){
         this.transitionMatrix = transition;
         this.emissionMatrix = emission;
         this.initialState = initial;
         this.observationsVector = observations;
-        this.numberOfStates = transition.size();
-        this.numberOfObservations = observations.size();
-        this.numberOfSymbols = emission.get(0).size();
+        this.numberOfStates = transition.length;
+        this.numberOfObservations = observations.length;
+        this.numberOfSymbols = emission[0].length;
     }
     public String learnReload(int iterations){
         Double oldLogProb = Double.NEGATIVE_INFINITY;
@@ -229,42 +229,7 @@ public class Learner {
         return printMatrixes(answer);
     }
     */
-    /*public String learn1(int numberOfIterations){
-        Double oldLogProb = Double.NEGATIVE_INFINITY;
 
-        Evaluator previousModel = new Evaluator(this.transitionMatrix, this.emissionMatrix, this.initialState, this.observationsVector);
-
-        Vector<Double> scalingFactor = new Vector<Double>();
-        Vector<Vector<Double>> alpha = previousModel.alphaPass(scalingFactor);
-        Vector<Vector<Double>> beta = previousModel.betaPass(scalingFactor);
-
-        for (int iteration=0; iteration < numberOfIterations; iteration++){
-
-            Vector<Vector<Double>> transitionEstimation = estimateTransition(alpha, beta);
-            Vector<Vector<Double>> emissionEstimation = estimateEmission(alpha, beta);
-            Vector<Double> initialVectorEstimation = estimatePi(alpha, beta);
-            Evaluator nextModel = new Evaluator(transitionEstimation, emissionEstimation, initialVectorEstimation, this.observationsVector);
-
-            //End Condition
-            Double previousEstimation = previousModel.evaluate();
-            Double currentEstimation = nextModel.evaluate();
-            if (Math.abs( previousEstimation - currentEstimation) < DELTA){
-                //System.out.println();
-                Vector<Vector<Vector<Double>>> answer = new Vector<Vector<Vector<Double>>>();
-                answer.add(transitionEstimation);
-                answer.add(emissionEstimation);
-                return printMatrixes(answer);
-            }
-            else {
-                alpha = nextModel.alphaPass(scalingFactor);
-                beta = nextModel.betaPass(scalingFactor);
-                previousModel = nextModel;
-                //System.out.println("Previous Estimation: " + previousEstimation);
-                //System.out.println("Current Estimation: " + currentEstimation);
-            }
-        }
-        return "asdads";
-    }*/
 
     /**
      *
@@ -293,117 +258,110 @@ public class Learner {
     }
 
     /**
-     *
-     * @param xiMatrix
-     * @param gammaMatrix
+     * Compute Pi, the initial probability vector
+     * @param gamma
      * @return
      */
-    private Vector<Vector<Double>> estimateTransition(Vector<Vector<Vector<Double>>> xiMatrix, Vector<Vector<Double>> gammaMatrix){
-
-        Vector<Vector<Double>> transition = new Vector<Vector<Double>>();
-        for (int i=0; i < numberOfStates; i++){
-            Vector<Double> transitionRow = new Vector<Double>();
-            Double numerator, denominator;
-            for (int j=0; j < numberOfStates; j++){
-                numerator = 0.0;
-                denominator = 0.0;
-                for (int t=0; t < numberOfObservations - 2; t++){
-                    numerator += xiMatrix.get(t).get(i).get(j);
-                    denominator += gammaMatrix.get(t).get(i);
-                }
-                transitionRow.add(numerator / denominator);
-            }
-            transition.add(transitionRow);
+    private Double[] estimatePi(Double[][] gamma){
+        Double[] pi = new Double[numberOfStates];
+        for (int i = 0; i < numberOfStates; i++){
+            pi[i]  = Extended.eexp(gamma[0][i]);
         }
 
-        return transition;
-
-    }
-
-    /**
-     *
-     * @param gammaMatrix
-     * @return
-     */
-    private Vector<Double> estimatePi(Vector<Vector<Double>> gammaMatrix){
-
-        Vector<Double> pi = new Vector<Double>();
-        for (int i=0; i < gammaMatrix.get(0).size(); i++){
-            pi.add(gammaMatrix.get(0).get(i));
-        }
         return pi;
     }
 
     /**
      *
      * @param xiMatrix
+     * @param gammaMatrix
      * @return
      */
-    private Vector<Vector<Double>> createGamma(Vector<Vector<Vector<Double>>> xiMatrix){
-        Vector<Vector<Double>> gammaMatrix = new Vector<Vector<Double>>();
-        for (int t=0; t < numberOfObservations - 2; t++){
-            Vector<Double> gamma = new Vector<Double>();
-            for (int i=0; i < numberOfStates; i++){
-                Double valueAtI = 0.0;
-                for (int j=0; j < numberOfStates; j++){
-                    valueAtI += xiMatrix.get(t).get(i).get(j);
+    private Double[][] estimateTransition(Double[][][] xi, Double[][] gamma){
+
+        Double[][] transition = new Double[numberOfStates][numberOfStates];
+        Double numerator = Double.NaN;
+        Double denominator = Double.NaN;
+
+        for (int t = 0; t < numberOfObservations; t++){
+            for (int i = 0; i < numberOfStates; i++){
+                for (int j = 0; j < numberOfStates; j++){
+                    numerator = Extended.esum(numerator, xi[t][i][j]);
+                    denominator = Extended.esum(denominator, gamma[t][i]);
                 }
-                gamma.add(valueAtI);
             }
-            gammaMatrix.add(gamma);
 
         }
-        return gammaMatrix;
+
+        for (int i = 0; i < numberOfStates; i++){
+            for (int j = 0; j < numberOfStates; j++){
+                transition[i][j] = Extended.eexp(
+                        Extended.eproduct(numerator, -denominator)
+                );
+            }
+        }
+
+        return transition;
     }
 
     /**
-     * Creates a xi matrix given a time t (as defined in hmmmut.pdf page 26)
-     * @param alpha Matrix from alpha-pass
-     * @param beta Matrix from beta-pass
-     * @return Vector<Vector<Double>> Xi matrix
-     */
-    private Vector<Vector<Double>> xiMatrix(Vector<Vector<Double>> alpha, Vector<Vector<Double>> beta, int currentT){
-        Vector<Vector<Double>> xiMatrix = new Vector<Vector<Double>>();
-        Vector<Double> xi = new Vector<Double>();
-
-        for (int i=0; i < numberOfStates; i++){
-            xi = new Vector<Double>();
-            for (int j=0; j < numberOfStates; j++){
-                Double numerator = alpha.get(currentT).get(i) * transitionMatrix.get(i).get(j) *
-                        emissionMatrix.get(j).get(Integer.parseInt(observationsVector.elementAt(currentT+1))) *
-                        beta.get(currentT+1).get(j);
-                xi.add(numerator / denominator(alpha,beta,currentT));
-            }
-            xiMatrix.add(xi);
-        }
-
-        return xiMatrix;
-    }
-
-    /**
-     * Creates a Vector of Xi Matrices, one matrix per time of observation
+     * Computes the log space Gamma Matrix
      * @param alpha
      * @param beta
      * @return
      */
-    private Vector<Vector<Vector<Double>>> createXi(Vector<Vector<Double>> alpha, Vector<Vector<Double>> beta){
-        Vector<Vector<Vector<Double>>> hyperMatrix = new Vector<Vector<Vector<Double>>>();
-        Vector<Vector<Double>> eachXi;
-        for (int t=0; t <= numberOfObservations - 2; t++){
-            eachXi = xiMatrix(alpha, beta, t);
-            hyperMatrix.add(eachXi);
-        }
-        return hyperMatrix;
-    }
+    private Double[][] gamma(Double[][] alpha, Double[][] beta){
 
-    private Double denominator(Vector<Vector<Double>> alpha, Vector<Vector<Double>> beta, int currentT){
-        Double sum = 0.0;
-        for (int i=0; i < numberOfStates; i++){
-            for (int j=0; j < numberOfStates; j++){
-                sum += alpha.get(currentT).get(i) * transitionMatrix.get(i).get(j) * emissionMatrix.get(j).get(Integer.parseInt(this.observationsVector.elementAt(currentT+1))) * beta.get(currentT + 1).get(j);
+        Double[][] gamma = new Double[numberOfObservations][numberOfStates];
+        for (int t = 0; t < numberOfObservations; t++){
+            Double normalizer = Double.NaN;
+            for (int i = 0; i < numberOfStates; i++){
+                gamma[t][i] = Extended.eproduct(alpha[t][i], beta[t][i]);
+                normalizer = Extended.esum(normalizer, gamma[t][i]);
+            }
+            for (int i = 1; i < numberOfStates; i++){
+                gamma[t][i] = Extended.eproduct(gamma[t][i], - normalizer);
             }
         }
-        return sum;
+
+        return gamma;
+    }
+
+    /**
+     * Computes the log space Xi Matrix
+     * @param alpha
+     * @param beta
+     * @return
+     */
+    private Double[][][] createXiMatrix(Double[][] alpha, Double[][] beta){
+        Double[][][] xiMatrix = new Double[numberOfObservations][numberOfStates][numberOfStates];
+
+        for (int t = 0; t < numberOfObservations; t++){
+            Double normalize = Double.NaN;
+            for (int i = 0; i < numberOfStates; i++){
+                for (int j = 0; j < numberOfStates; j++){
+                    xiMatrix[t][i][j] = Extended.eproduct(
+                            Extended.eln(alpha[t][i]),
+                            Extended.eproduct(
+                                    Extended.eln(transitionMatrix[i][j]),
+                                    Extended.eproduct(
+                                            Extended.eln(emissionMatrix[j][t+1]),
+                                            Extended.eln(beta[t+1][j])
+                                    )
+                            )
+                    );
+                    normalize = Extended.esum(normalize, xiMatrix[t][i][j]);
+                }
+            }
+
+            for (int i = 0; i < numberOfStates; i++){
+                for (int j = 0; j < numberOfStates; j++){
+                    xiMatrix[t][i][j] = Extended.eproduct(xiMatrix[t][i][j], -normalize);
+                }
+            }
+        }
+
+        return xiMatrix;
     }
 
     private String printMatrixes(Vector<Vector<Vector<Double>>> matrixes){
@@ -419,25 +377,6 @@ public class Learner {
         }
 
         return st;
-    }
-
-    private Vector<Vector<Double>> normalizeAndSetScalingVector( Vector<Vector<Double>> matrix, Vector<Double> scalingFactor){
-        Vector<Vector<Double>> normalized = new Vector<Vector<Double>>();
-        Double sum = 0.0;
-        for (Vector<Double> alphaRow : matrix){
-            Vector<Double> newAlphaRow = new Vector<Double>();
-
-            for (Double elem : alphaRow){
-                sum += elem;
-            }
-            scalingFactor.add(1 / sum);
-            for (Double elem : alphaRow){
-                newAlphaRow.add( elem * 1/sum);
-            }
-            normalized.add(newAlphaRow);
-        }
-
-        return normalized;
     }
 }
 
